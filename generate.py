@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+#TODO guid
+#TODO all maps
+#TODO all normal dungeons that don't require changing the exits
+#TODO all bosses that don't require changing the exits
+#TODO all remaining dungeons
+#TODO all wildernesses
 import sys,os,shutil,dataclasses
 
 ENCODING='utf-16'
@@ -50,7 +56,7 @@ class ReplaceMaxLevel(Replace):
     self.pattern='<INTEGER>MAXLEVEL'
     self.replacement=f'\t<INTEGER>MAXLEVEL:110\n'
     
-class ReplaceName(Replace):
+class ReplaceDisplayName(Replace):
   def __init__(self,to):
     self.pattern='<TRANSLATE>DISPLAYNAME:'
     self.replacement=f'\t<TRANSLATE>DISPLAYNAME:{to}\n'
@@ -75,15 +81,31 @@ class ReplaceMaxMatchLevel(Replace):
     self.pattern='<INTEGER>PLAYER_LVL_MATCH_MAX:'
     self.replacement=f'\t<INTEGER>PLAYER_LVL_MATCH_MAX:105\n'
     
+class ReplaceName(Replace):
+  def __init__(self,to):
+    self.pattern='<STRING>NAME:'
+    self.replacement=f'\t<STRING>NAME:{to}\n'
+    
+class ReplaceRarity(Replace):
+  def __init__(self,tier):
+    self.pattern='<INTEGER>RARITY:'
+    self.replacement=f'\t<INTEGER>RARITY:{tier.rarity}\n'
+    
+class ReplaceDungeon(Replace):
+  def __init__(self,name):
+    self.pattern='<STRING>DUNGEON:'
+    self.replacement=f'\t<STRING>DUNGEON:{name}\n'
+    
 @dataclasses.dataclass
 class Tier:
   name:str
   offset:int
+  rarity:int
 
-dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')] #TODO begging with all end-game dungeons
-tiers=[Tier('hard',5)]#TODO
+dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')] #TODO
+tiers=[Tier('easy',0,20),Tier('normal',10,8),Tier('hard',20,4),Tier('epic',30,2),Tier('legendary',40,1),]#TODO casual?
 
-def modify(path,replace=[],add=[]):
+def modify(path,destination,replace=[],add=[]):
   generated=[]
   with open(REFERENCE+path.upper(),encoding=ENCODING) as f:
     for line in f:
@@ -96,7 +118,11 @@ def modify(path,replace=[],add=[]):
   for a in add:
     generated.insert(len(generated)-1,a)
   generated=''.join(generated)
-  print(generated,file=open(path,'w',encoding=ENCODING))
+  destination=f'{os.path.dirname(path)}/{destination}.dat'
+  with open(destination,'w',encoding=ENCODING) as f:
+    f.write(generated)
+  os.system(f'cat {destination} | unix2dos -u  > {destination}.tmp')
+  os.system(f'mv {destination}.tmp {destination}')
   return generated
 
 def setup():
@@ -108,12 +134,18 @@ def setup():
 setup()
 
 for d in dungeons:
-  for t in tiers:
-    name=ReplaceName(f'{d.name} map ({t.name})')
-    r=[ReplaceMinLevel(),ReplaceMaxLevel(),ReplaceDescription(d,t),name]
-    a=[OPENPORTAL]
-    modify(d.scroll,replace=r,add=a)
-    r=[name,ReplaceParentDungeon(),ReplaceParentTown(),ReplaceMinMatchLevel(),ReplaceMaxMatchLevel()]
+  for t in tiers[:1]:#TODO
+    basename=f'{d.name.lower()}_{t.offset}'
+    while ' ' in basename:
+      basename=basename.replace(' ','_')
+    displayname=ReplaceDisplayName(f'{d.name}')
+    dungeon=f'am_{basename}'
+    r=[displayname,ReplaceName(dungeon),ReplaceParentDungeon(),ReplaceParentTown(),ReplaceMinMatchLevel(),ReplaceMaxMatchLevel()]
     a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n'] #TODO does adding this to the end rather than the "right" space impact in any way? hopefully not since its seems like XML. should be asy to test by just seeing if GUTS recognizes it when opening the data.
-    print(modify(d.dungeon,replace=r,add=a))
-    
+    modify(d.dungeon,dungeon,replace=r,add=a)
+    displayname=ReplaceDisplayName(f'{d.name} map ({t.name})')
+    scroll=f'am_map_{basename}'
+    r=[displayname,ReplaceName(scroll),ReplaceMinLevel(),ReplaceMaxLevel(),ReplaceDescription(d,t),ReplaceRarity(t),ReplaceDungeon(dungeon)]
+    a=[OPENPORTAL]
+    modify(d.scroll,scroll,replace=r,add=a)
+os.system('cp -r static/* media/')
