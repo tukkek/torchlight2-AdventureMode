@@ -15,19 +15,20 @@ OPENPORTAL='''	[EFFECT]
 		<FLOAT>MAX:0
 	[/EFFECT]
 '''
+PARENT='ESTHERIANCITY'
 
 @dataclasses.dataclass
 class Dungeon:
   name:str
   dungeon:str
-  item:str
+  scroll:str #technically a Map but that's a highlighted Python function
   
   def topath(self,path,filename):
     return f'{path}/{filename}.dat'
   
   def __post_init__(self):
     self.dungeon=self.topath(DIRDUNGEONS,self.dungeon)
-    self.item=self.topath(DIRMAPS,self.item)
+    self.scroll=self.topath(DIRMAPS,self.scroll)
     
 @dataclasses.dataclass
 class Replace:
@@ -50,33 +51,53 @@ class ReplaceMaxLevel(Replace):
     self.replacement=f'\t<INTEGER>MAXLEVEL:110\n'
     
 class ReplaceName(Replace):
-  def __init__(self,dungeon,tier):
+  def __init__(self,to):
     self.pattern='<TRANSLATE>DISPLAYNAME:'
-    self.replacement=f'\t<TRANSLATE>DISPLAYNAME:{dungeon.name} map ({tier.name})\n'
+    self.replacement=f'\t<TRANSLATE>DISPLAYNAME:{to}\n'
+    
+class ReplaceParentDungeon(Replace):
+  def __init__(self):
+    self.pattern='<STRING>PARENT_DUNGEON:'
+    self.replacement=f'\t<STRING>PARENT_DUNGEON:{PARENT}\n'
+    
+class ReplaceParentTown(Replace):
+  def __init__(self):
+    self.pattern='<STRING>PARENT_TOWN:'
+    self.replacement=f'\t<STRING>PARENT_TOWN:{PARENT}\n'
+    
+class ReplaceMinMatchLevel(Replace):
+  def __init__(self):
+    self.pattern='<INTEGER>PLAYER_LVL_MATCH_MIN:'
+    self.replacement=f'\t<INTEGER>PLAYER_LVL_MATCH_MIN:1\n'
+    
+class ReplaceMaxMatchLevel(Replace):
+  def __init__(self):
+    self.pattern='<INTEGER>PLAYER_LVL_MATCH_MAX:'
+    self.replacement=f'\t<INTEGER>PLAYER_LVL_MATCH_MAX:105\n'
     
 @dataclasses.dataclass
 class Tier:
   name:str
   offset:int
 
-dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')]
-replacements=[ReplaceMinLevel(),ReplaceMaxLevel()]
-tiers=[Tier('hard',0)]#TODO
+dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')] #TODO begging with all end-game dungeons
+tiers=[Tier('hard',5)]#TODO
 
 def modify(path,replace=[],add=[]):
-  modified=[]
+  generated=[]
   with open(REFERENCE+path.upper(),encoding=ENCODING) as f:
     for line in f:
       for r in replace:
         if r.pattern in line:
-          modified.append(r.replacement)
+          generated.append(r.replacement)
           break
       else:
-        modified.append(line)
+        generated.append(line)
   for a in add:
-    modified.insert(len(modified)-1,a)
-  modified=''.join(modified)
-  print(modified,file=open(path,'w',encoding=ENCODING))
+    generated.insert(len(generated)-1,a)
+  generated=''.join(generated)
+  print(generated,file=open(path,'w',encoding=ENCODING))
+  return generated
 
 def setup():
   if os.path.exists(DIRMEDIA):
@@ -88,6 +109,11 @@ setup()
 
 for d in dungeons:
   for t in tiers:
-    r=replacements+[ReplaceDescription(d,t),ReplaceName(d,t)]
+    name=ReplaceName(f'{d.name} map ({t.name})')
+    r=[ReplaceMinLevel(),ReplaceMaxLevel(),ReplaceDescription(d,t),name]
     a=[OPENPORTAL]
-    modify(d.item,replace=r,add=a)
+    modify(d.scroll,replace=r,add=a)
+    r=[name,ReplaceParentDungeon(),ReplaceParentTown(),ReplaceMinMatchLevel(),ReplaceMaxMatchLevel()]
+    a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n'] #TODO does adding this to the end rather than the "right" space impact in any way? hopefully not since its seems like XML. should be asy to test by just seeing if GUTS recognizes it when opening the data.
+    print(modify(d.dungeon,replace=r,add=a))
+    
