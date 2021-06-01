@@ -23,6 +23,8 @@ OPENPORTAL='''	[EFFECT]
 	[/EFFECT]
 '''
 PARENT='ESTHERIANCITY'
+GUIDWARNING='''For extra safety make sure to check GUIDs on GUTS before publishing your mod.
+If there are any collisions, regenerating the files again should solve the problem.'''
 
 @dataclasses.dataclass
 class Dungeon:
@@ -73,14 +75,14 @@ class ReplaceParentTown(Replace):
     self.replacement=f'\t<STRING>PARENT_TOWN:{PARENT}\n'
     
 class ReplaceMinMatchLevel(Replace):
-  def __init__(self):
+  def __init__(self,t):
     self.pattern='<INTEGER>PLAYER_LVL_MATCH_MIN:'
-    self.replacement=f'\t<INTEGER>PLAYER_LVL_MATCH_MIN:1\n'
+    self.replacement=f'\t<INTEGER>PLAYER_LVL_MATCH_MIN:{t.minlevel}\n'
     
 class ReplaceMaxMatchLevel(Replace):
-  def __init__(self):
+  def __init__(self,t):
     self.pattern='<INTEGER>PLAYER_LVL_MATCH_MAX:'
-    self.replacement=f'\t<INTEGER>PLAYER_LVL_MATCH_MAX:105\n'
+    self.replacement=f'\t<INTEGER>PLAYER_LVL_MATCH_MAX:{t.maxlevel}\n'
     
 class ReplaceName(Replace):
   def __init__(self,to):
@@ -101,23 +103,46 @@ class ReplaceGuid(Replace):
   def __init__(self,name):
     self.pattern='<STRING>UNIT_GUID:'
     self.replacement=f'\t<STRING>UNIT_GUID:{hash(name)}\n'
-    print(name)
-    print(hash(name))
     
 class ReplaceIsMap(Replace):
   def __init__(self):
     self.pattern='<BOOL>MAP:'
     self.replacement=False
-    
+
+NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII']
+TIERS=13
+
 @dataclasses.dataclass
 class Tier:
-  name:str
-  offset:int
-  rarity:int
+  tier:int
+  name:str=''
+  minlevel:int=''
+  maxlevel:int=''
+  offset:int=0
+  rarity:int=0
+  
+  def __post_init__(self):
+    t=self.tier
+    self.name=NUMERALS[t]
+    if t==0:
+      self.minlevel=1
+    elif t>10:
+      self.minlevel=100
+    else:
+      self.minlevel=t*10
+    self.maxlevel=(t+1)*10
+    self.rarity=TIERS-t
+    if t>=10:
+      self.offset=(t-9)*10
+    
 
 dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')] #TODO
-tiers=[Tier('easy',0,20),Tier('normal',10,8),Tier('hard',20,4),Tier('epic',30,2),Tier('legendary',40,1),]
+tiers=[Tier(i) for i in range(0,TIERS)]
 totalgenerated=0
+
+for t in tiers:#TODO
+  print(t)
+
 
 '''
 This is a shame but I have been unable to generate binary-identical .dat files with Python alone or understand 100% why I can't.
@@ -159,16 +184,15 @@ def setup():
   os.makedirs(DIRMAPS)
 
 setup()
-
 for d in dungeons:
-  for t in tiers[:1]:#TODO
-    basename=f'{d.name.lower()}_{t.offset}'
+  for t in tiers:
+    basename=f'{d.name.lower()}_{t.tier}'
     while ' ' in basename:
       basename=basename.replace(' ','_')
     dungeonname=f'am_{basename}'
-    r=[ReplaceDisplayName(f'{d.name}'),ReplaceName(dungeonname),
+    r=[ReplaceDisplayName(f'{d.name} (Tier {t.name})'),ReplaceName(dungeonname),
        ReplaceParentDungeon(),ReplaceParentTown(),
-       ReplaceMinMatchLevel(),ReplaceMaxMatchLevel(),
+       ReplaceMinMatchLevel(t),ReplaceMaxMatchLevel(t),
        ReplaceIsMap()]
     a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n']
     modify(d.dungeon,dungeonname,replace=r,add=a)
@@ -180,5 +204,5 @@ for d in dungeons:
        ReplaceGuid(mapname)]
     a=[OPENPORTAL]
     modify(d.scroll,mapname,replace=r,add=a)
-print(f'{totalgenerated} files generated.\nFor extra safety make sure to check GUIDs on GUTS before publishing your mod.')
+print(f'{totalgenerated} files generated.\n{GUIDWARNING}')
 os.system('cp -r static/media/* media/')
