@@ -4,4 +4,4 @@ rm -rf media/
 mkdir -p media/dungeons
 mkdir -p media/units/items/maps
 cp -r static/media/* media/
-./generate.py
+python3 generate.py
