@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-#TODO all maps
+#TODO use a different map icon for each tier
 #TODO all normal dungeons that don't require changing the exits
 #TODO all bosses that don't require changing the exits
 #TODO all remaining dungeons
 #TODO all wildernesses
 #TODO at some point fixed-level ranges might be worth exploring rather than using offsets, it would give more of a sense of progress and adventure - it should be relatively easy to pull too with the right level ranges, drop ranges and constant scroll rarity
-#TODO make this not linux-dependeant (see #convert for starters)
+#TODO make this cross-platform (see #convert for starters)
 import sys,os,shutil,dataclasses
 
 ENCODING='utf-16'
@@ -194,13 +194,6 @@ def modify(path,destination,replace=[],add=[]):
   convert(destination)
   return generated
 
-def setup():
-  if os.path.exists(DIRMEDIA):
-    shutil.rmtree(DIRMEDIA)
-  os.makedirs(DIRDUNGEONS)
-  os.makedirs(DIRMAPS)
-
-setup()
 maps=0
 for d in dungeons:
   print(f'{d.name}...')
@@ -228,4 +221,3 @@ for d in dungeons:
 print()
 print(f'Generated {len(dungeons)} dungeons, {len(tiers)} tiers, {maps} maps.')
 print(GUIDWARNING)
-os.system('cp -r static/media/* media/')
