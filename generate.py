@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+#TODO make repository public after first Workshop alpha
 #TODO use a different map icon for each tier
 #TODO all normal dungeons that don't require changing the exits
 #TODO all bosses that don't require changing the exits
