@@ -14,6 +14,7 @@ DIRDUNGEONS='media/dungeons'
 DIRMAPS='media/units/items/maps'
 REFERENCE='/media/sda2/windows/steam/steamapps/common/Torchlight II/'#TODO make argument
 OPENPORTAL='''	[EFFECT]
+		<STRING>NAME:{}
 		<STRING>ACTIVATION:DYNAMIC
 		<STRING>DURATION:INSTANT
 		<STRING>TYPE:OPEN PORTAL
@@ -226,7 +227,7 @@ for d in dungeons:
        ReplaceGuid(mapname),ReplaceValue(t),
        ReplaceLevel(t),ReplaceMinLevel(t),
        ReplaceMaxLevel(t),ReplaceUses()]
-    a=[OPENPORTAL]
+    a=[OPENPORTAL.format(dungeonname)]
     modify(d.scroll,mapname,replace=r,add=a)
 print(f'{totalgenerated} files generated.\n{GUIDWARNING}')
 os.system('cp -r static/media/* media/')
