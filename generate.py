@@ -47,18 +47,8 @@ class Replace:
 class ReplaceDescription(Replace):
   def __init__(self,dungeon,tier):
     self.pattern='<TRANSLATE>DESCRIPTION:'
-    self.replacement=f'\t<TRANSLATE>DESCRIPTION:Right-click to enter the {dungeon.name} ({tier.name})\n'
+    self.replacement=f'\t<TRANSLATE>DESCRIPTION:Right-click to enter {dungeon.name} (Tier {tier.name})\n'
 
-class ReplaceMinLevel(Replace):
-  def __init__(self):
-    self.pattern='<INTEGER>MINLEVEL'
-    self.replacement=f'\t<INTEGER>MINLEVEL:1\n'
-
-class ReplaceMaxLevel(Replace):
-  def __init__(self):
-    self.pattern='<INTEGER>MAXLEVEL'
-    self.replacement=f'\t<INTEGER>MAXLEVEL:110\n'
-    
 class ReplaceDisplayName(Replace):
   def __init__(self,to):
     self.pattern='<TRANSLATE>DISPLAYNAME:'
@@ -108,6 +98,31 @@ class ReplaceIsMap(Replace):
   def __init__(self):
     self.pattern='<BOOL>MAP:'
     self.replacement=False
+    
+class ReplaceValue(Replace):
+  def __init__(self,tier):
+    self.pattern='<INTEGER>VALUE:'
+    self.replacement=f'\t<INTEGER>VALUE:{tier.value}\n'
+    
+class ReplaceLevel(Replace):
+  def __init__(self,tier):
+    self.pattern='<INTEGER>LEVEL:'
+    self.replacement=f'\t<INTEGER>LEVEL:{tier.minlevel}\n'
+    
+class ReplaceMinLevel(Replace):
+  def __init__(self,tier):
+    self.pattern='<INTEGER>MINLEVEL:'
+    self.replacement=f'\t<INTEGER>MINLEVEL:{tier.mindroplevel}\n'
+    
+class ReplaceMaxLevel(Replace):
+  def __init__(self,tier):
+    self.pattern='<INTEGER>MAXLEVEL:'
+    self.replacement=f'\t<INTEGER>MAXLEVEL:{tier.maxdroplevel}\n'
+    
+class ReplaceUses(Replace):
+  def __init__(self):
+    self.pattern='<STRING>USES:'
+    self.replacement=f'\t<STRING>USES:1\n'
 
 NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII']
 TIERS=13
@@ -119,7 +134,10 @@ class Tier:
   minlevel:int=''
   maxlevel:int=''
   offset:int=0
+  mindroplevel:int=''
+  maxdroplevel:int=''
   rarity:int=0
+  value:int=0
   
   def __post_init__(self):
     t=self.tier
@@ -131,9 +149,14 @@ class Tier:
     else:
       self.minlevel=t*10
     self.maxlevel=(t+1)*10
-    self.rarity=TIERS-t
-    if t>=10:
+    if t>=9:
       self.offset=(t-9)*10
+    self.mindroplevel=self.maxlevel-20
+    if self.mindroplevel<1:
+      self.mindroplevel=1
+    self.maxdroplevel=self.maxlevel+10
+    self.rarity=TIERS-t
+    self.value=t+1
     
 
 dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')] #TODO
@@ -190,18 +213,19 @@ for d in dungeons:
     while ' ' in basename:
       basename=basename.replace(' ','_')
     dungeonname=f'am_{basename}'
-    r=[ReplaceDisplayName(f'{d.name} (Tier {t.name})'),ReplaceName(dungeonname),
-       ReplaceParentDungeon(),ReplaceParentTown(),
-       ReplaceMinMatchLevel(t),ReplaceMaxMatchLevel(t),
-       ReplaceIsMap()]
+    r=[ReplaceDisplayName(f'{d.name} (Tier {t.name})'),
+       ReplaceName(dungeonname),ReplaceParentDungeon(),
+       ReplaceParentTown(),ReplaceMinMatchLevel(t),
+       ReplaceMaxMatchLevel(t),ReplaceIsMap()]
     a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n']
     modify(d.dungeon,dungeonname,replace=r,add=a)
     mapname=f'am_map_{basename}'
     r=[ReplaceDisplayName(f'{d.name} map ({t.name})'),
-       ReplaceName(mapname),ReplaceMinLevel(),
-       ReplaceMaxLevel(),ReplaceDescription(d,t),
+       ReplaceName(mapname),ReplaceDescription(d,t),
        ReplaceRarity(t),ReplaceDungeon(dungeonname),
-       ReplaceGuid(mapname)]
+       ReplaceGuid(mapname),ReplaceValue(t),
+       ReplaceLevel(t),ReplaceMinLevel(t),
+       ReplaceMaxLevel(t),ReplaceUses()]
     a=[OPENPORTAL]
     modify(d.scroll,mapname,replace=r,add=a)
 print(f'{totalgenerated} files generated.\n{GUIDWARNING}')
