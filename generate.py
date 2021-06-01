@@ -31,7 +31,7 @@ If there are any collisions, regenerating the files again should solve the probl
 class Dungeon:
   name:str
   dungeon:str
-  scroll:str #technically a Map but that's a highlighted Python function
+  scroll:str='catacombsmapa105' #technically a Map but that's a highlighted Python function
   
   def topath(self,path,filename):
     return f'{path}/{filename}.dat'
@@ -158,15 +158,10 @@ class Tier:
     self.maxdroplevel=self.maxlevel+10
     self.rarity=TIERS-t
     self.value=t+1
-    
 
-dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')] #TODO
+#use scan.py to help generate this
+dungeons=[Dungeon('Defiled Cemetery','map_catacombs_b_66'),Dungeon('Estherian Depths','map_estherian_a'),Dungeon('Frostbitten Caverns','map_icecaves_a'),Dungeon('Defiled Burrow','map_catacombs_2'),Dungeon('Ghastly Vault','map_catacombs_3'),Dungeon('Infernal Necropolis','map_catacombs_a_105'),Dungeon('Cursed Tombs','map_catacombs_a_56'),Dungeon('Cursed Mausoleum','map_catacombs_a_66'),Dungeon('Infernal Catacombs','map_catacombs_a_76'),Dungeon('Infernal Tombs','map_catacombs_a_86'),Dungeon('Infernal Mausoleum','map_catacombs_a_96'),Dungeon('Desecrated Sepulcher','map_catacombs_b_105'),Dungeon('Defiled Graves','map_catacombs_b_56'),Dungeon('Desecrated Burrow','map_catacombs_b_76'),Dungeon('Desecrated Graves','map_catacombs_b_86'),Dungeon('Desecrated Cemetery','map_catacombs_b_96'),Dungeon('Bloody Boneyard','map_catacombs_c_105'),Dungeon('Ghastly Crypt','map_catacombs_c_56'),Dungeon('Ghastly Mortuary','map_catacombs_c_66'),Dungeon('Bloody Vault','map_catacombs_c_76'),Dungeon('Bloody Crypt','map_catacombs_c_86'),Dungeon('Bloody Mortuary','map_catacombs_c_96'),Dungeon('Shadowy Grotto','map_caves_a'),Dungeon('Abyssal Fissure','map_caves_a_105'),Dungeon('Shadowy Pit','map_caves_a_56'),Dungeon('Shadowy Caves','map_caves_a_66'),Dungeon('Abyssal Grotto','map_caves_a_76'),Dungeon('Abyssal Pit','map_caves_a_86'),Dungeon('Abyssal Caves','map_caves_a_96'),Dungeon('Wyvern Keep','map_dragon_a'),Dungeon('Dragon Bastion','map_dragon_a105'),Dungeon('Wyvern Stronghold','map_dragon_a56-65'),Dungeon('Wyvern Citadel','map_dragon_a66-75'),Dungeon('Dragon Keep','map_dragon_a76-85'),Dungeon('Dragon Stronghold','map_dragon_a86-95'),Dungeon('Dragon Citadel','map_dragon_a96-105'),Dungeon('Forgotten Labs','map_dwarvenlabs_a'),Dungeon('Deserted Foundry','map_dwarvenlabs_a_105'),Dungeon('Forgotten Workshop','map_dwarvenlabs_a_56'),Dungeon('Forgotten Factory','map_dwarvenlabs_a_66'),Dungeon('Deserted Labs','map_dwarvenlabs_a_76'),Dungeon('Deserted Workshop','map_dwarvenlabs_a_86'),Dungeon('Deserted Factory','map_dwarvenlabs_a_96'),Dungeon('Ruined Shrine','map_estherian_b'),Dungeon('Desolate Chantry','map_estherian_b105'),Dungeon('Ruined Sanctuary','map_estherian_b56'),Dungeon('Ruined Temple','map_estherian_b66'),Dungeon('Desolate Shrine','map_estherian_b76'),Dungeon('Desolate Sanctuary','map_estherian_b86'),Dungeon('Desolate Temple','map_estherian_b96'),Dungeon('Infected Hollow','map_estherian_c'),Dungeon('Blighted Sanctum','map_estherian_c_105'),Dungeon('Infected Retreat','map_estherian_c_56'),Dungeon('Infected Depths','map_estherian_c_66'),Dungeon('Blighted Hollow','map_estherian_c_76'),Dungeon('Blighted Retreat','map_estherian_c_86'),Dungeon('Blighted Depths','map_estherian_c_96'),Dungeon('Frostshorn Breach','map_icecaves_a_105'),Dungeon('Frostbitten Ravine','map_icecaves_a_56'),Dungeon('Frostbitten Chasm','map_icecaves_a_66'),Dungeon('Frostshorn Caverns','map_icecaves_a_76'),Dungeon('Frostshorn Ravine','map_icecaves_a_86'),Dungeon('Frostshorn Chasm','map_icecaves_a_96'),Dungeon('Ransacked Halls','map_vaults_a'),Dungeon('Ezrohir Treasury','map_vaults_a105'),Dungeon('Ransacked Commons','map_vaults_a56'),Dungeon('Ransacked Vault','map_vaults_a66'),Dungeon('Ezrohir Halls','map_vaults_a76'),Dungeon('Ezrohir Commons','map_vaults_a86'),Dungeon('Ezrohir Vault','map_vaults_a96'),Dungeon('Cursed Catacombs','maproom_catacombs_1')]
 tiers=[Tier(i) for i in range(0,TIERS)]
-totalgenerated=0
-
-for t in tiers:#TODO
-  print(t)
-
 
 '''
 This is a shame but I have been unable to generate binary-identical .dat files with Python alone or understand 100% why I can't.
@@ -197,8 +192,6 @@ def modify(path,destination,replace=[],add=[]):
   with open(destination,'w',encoding=ENCODING) as f:
     f.write(generated)
   convert(destination)
-  global totalgenerated
-  totalgenerated+=1
   return generated
 
 def setup():
@@ -208,7 +201,9 @@ def setup():
   os.makedirs(DIRMAPS)
 
 setup()
+maps=0
 for d in dungeons:
+  print(f'{d.name}...')
   for t in tiers:
     basename=f'{d.name.lower()}_{t.tier}'
     while ' ' in basename:
@@ -229,5 +224,8 @@ for d in dungeons:
        ReplaceMaxLevel(t),ReplaceUses()]
     a=[OPENPORTAL.format(dungeonname)]
     modify(d.scroll,mapname,replace=r,add=a)
-print(f'{totalgenerated} files generated.\n{GUIDWARNING}')
+    maps+=1
+print()
+print(f'Generated {len(dungeons)} dungeons, {len(tiers)} tiers, {maps} maps.')
+print(GUIDWARNING)
 os.system('cp -r static/media/* media/')
