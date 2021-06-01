@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-#TODO guid
 #TODO all maps
 #TODO all normal dungeons that don't require changing the exits
 #TODO all bosses that don't require changing the exits
 #TODO all remaining dungeons
 #TODO all wildernesses
+#TODO at some point fixed-level ranges might be worth exploring rather than using offsets, it would give more of a sense of progress and adventure - it should be relatively easy to pull too with the right level ranges, drop ranges and constant scroll rarity
+#TODO make this not linux-dependeant (see #convert for starters)
 import sys,os,shutil,dataclasses
 
 ENCODING='utf-16'
@@ -96,6 +97,11 @@ class ReplaceDungeon(Replace):
     self.pattern='<STRING>DUNGEON:'
     self.replacement=f'\t<STRING>DUNGEON:{name}\n'
     
+class ReplaceGuid(Replace):
+  def __init__(self,name):
+    self.pattern='<STRING>UNIT_GUID:'
+    self.replacement=f'\t<STRING>UNIT_GUID:{hash(name)}\n'
+    
 @dataclasses.dataclass
 class Tier:
   name:str
@@ -103,7 +109,19 @@ class Tier:
   rarity:int
 
 dungeons=[Dungeon('Infernal Necropolis','map_catacombs_a_105','catacombsmapa105')] #TODO
-tiers=[Tier('easy',0,20),Tier('normal',10,8),Tier('hard',20,4),Tier('epic',30,2),Tier('legendary',40,1),]#TODO casual?
+tiers=[Tier('easy',0,20),Tier('normal',10,8),Tier('hard',20,4),Tier('epic',30,2),Tier('legendary',40,1),]
+totalgenerated=0
+
+'''
+This is a shame but I have been unable to generate binary-identical .dat files with Python alone or understand 100% why I can't.
+Thankfully the `unix2dos` utility (`apt-get install dos2unix` on Debian) does the job.
+A workaround to this is opening the .dat files on Windows 10's `wordpad` manually and simply saving them but that's a lot of tedious, manual labor for every generated batch...
+I believe this must have something to do with \r\n on Windows but I have tried adding those manually as well.
+TODO solving this would be a necessary step to making this script cross-platform
+'''
+def convert(destination):
+  os.system(f'cat {destination} | unix2dos -u  > {destination}.tmp')
+  os.system(f'mv {destination}.tmp {destination}')
 
 def modify(path,destination,replace=[],add=[]):
   generated=[]
@@ -121,8 +139,9 @@ def modify(path,destination,replace=[],add=[]):
   destination=f'{os.path.dirname(path)}/{destination}.dat'
   with open(destination,'w',encoding=ENCODING) as f:
     f.write(generated)
-  os.system(f'cat {destination} | unix2dos -u  > {destination}.tmp')
-  os.system(f'mv {destination}.tmp {destination}')
+  convert(destination)
+  global totalgenerated
+  totalgenerated+=1
   return generated
 
 def setup():
@@ -138,14 +157,19 @@ for d in dungeons:
     basename=f'{d.name.lower()}_{t.offset}'
     while ' ' in basename:
       basename=basename.replace(' ','_')
-    displayname=ReplaceDisplayName(f'{d.name}')
-    dungeon=f'am_{basename}'
-    r=[displayname,ReplaceName(dungeon),ReplaceParentDungeon(),ReplaceParentTown(),ReplaceMinMatchLevel(),ReplaceMaxMatchLevel()]
-    a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n'] #TODO does adding this to the end rather than the "right" space impact in any way? hopefully not since its seems like XML. should be asy to test by just seeing if GUTS recognizes it when opening the data.
-    modify(d.dungeon,dungeon,replace=r,add=a)
-    displayname=ReplaceDisplayName(f'{d.name} map ({t.name})')
-    scroll=f'am_map_{basename}'
-    r=[displayname,ReplaceName(scroll),ReplaceMinLevel(),ReplaceMaxLevel(),ReplaceDescription(d,t),ReplaceRarity(t),ReplaceDungeon(dungeon)]
+    dungeonname=f'am_{basename}'
+    r=[ReplaceDisplayName(f'{d.name}'),ReplaceName(dungeonname),
+       ReplaceParentDungeon(),ReplaceParentTown(),
+       ReplaceMinMatchLevel(),ReplaceMaxMatchLevel()]
+    a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n']
+    modify(d.dungeon,dungeonname,replace=r,add=a)
+    mapname=f'am_map_{basename}'
+    r=[ReplaceDisplayName(f'{d.name} map ({t.name})'),
+       ReplaceName(mapname),ReplaceMinLevel(),
+       ReplaceMaxLevel(),ReplaceDescription(d,t),
+       ReplaceRarity(t),ReplaceDungeon(dungeonname),
+       ReplaceGuid(mapname)]
     a=[OPENPORTAL]
-    modify(d.scroll,scroll,replace=r,add=a)
-os.system('cp -r static/* media/')
+    modify(d.scroll,mapname,replace=r,add=a)
+print(f'{totalgenerated} files generated.\nFor extra safety make sure to check GUIDs on GUTS before publishing your mod.')
+os.system('cp -r static/media/* media/')
