@@ -40,7 +40,7 @@ class Dungeon:
 @dataclasses.dataclass
 class Replace:
   pattern:str
-  replacement:str
+  replacement:str #if False, skip line
   
 class ReplaceDescription(Replace):
   def __init__(self,dungeon,tier):
@@ -101,6 +101,13 @@ class ReplaceGuid(Replace):
   def __init__(self,name):
     self.pattern='<STRING>UNIT_GUID:'
     self.replacement=f'\t<STRING>UNIT_GUID:{hash(name)}\n'
+    print(name)
+    print(hash(name))
+    
+class ReplaceIsMap(Replace):
+  def __init__(self):
+    self.pattern='<BOOL>MAP:'
+    self.replacement=False
     
 @dataclasses.dataclass
 class Tier:
@@ -129,7 +136,8 @@ def modify(path,destination,replace=[],add=[]):
     for line in f:
       for r in replace:
         if r.pattern in line:
-          generated.append(r.replacement)
+          if r.replacement:
+            generated.append(r.replacement)
           break
       else:
         generated.append(line)
@@ -160,7 +168,8 @@ for d in dungeons:
     dungeonname=f'am_{basename}'
     r=[ReplaceDisplayName(f'{d.name}'),ReplaceName(dungeonname),
        ReplaceParentDungeon(),ReplaceParentTown(),
-       ReplaceMinMatchLevel(),ReplaceMaxMatchLevel()]
+       ReplaceMinMatchLevel(),ReplaceMaxMatchLevel(),
+       ReplaceIsMap()]
     a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n']
     modify(d.dungeon,dungeonname,replace=r,add=a)
     mapname=f'am_map_{basename}'
