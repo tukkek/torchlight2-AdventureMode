@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name= "maps" Imagefile="media/ui/icons/maps/maps.dds" NativeHorzRes="1024" NativeVertRes="768" AutoScaled="true" >
+	<Image Name="map_0" XPos="1" YPos="1" Width="62" Height="62" />
+	<Image Name="map_1" XPos="65" YPos="1" Width="62" Height="62" />
+	<Image Name="map_2" XPos="129" YPos="1" Width="62" Height="62" />
+	<Image Name="map_3" XPos="193" YPos="1" Width="62" Height="62" />
+	<Image Name="map_4" XPos="1" YPos="65" Width="62" Height="62" />
+	<Image Name="map_5" XPos="65" YPos="65" Width="62" Height="62" />
+	<Image Name="map_6" XPos="129" YPos="65" Width="62" Height="62" />
+	<Image Name="map_7" XPos="193" YPos="65" Width="62" Height="62" />
+	<Image Name="map_8" XPos="1" YPos="129" Width="62" Height="62" />
+	<Image Name="map_9" XPos="65" YPos="129" Width="62" Height="62" />
+	<Image Name="map_10" XPos="129" YPos="129" Width="62" Height="62" />
+	<Image Name="map_11" XPos="193" YPos="129" Width="62" Height="62" />
+	<Image Name="map_12" XPos="1" YPos="193" Width="62" Height="62" />
+	<Image Name="map_13" XPos="65" YPos="193" Width="62" Height="62" />
+	<Image Name="map_14" XPos="129" YPos="193" Width="62" Height="62" />
+	<Image Name="map_15" XPos="193" YPos="193" Width="62" Height="62" />
+</Imageset>
