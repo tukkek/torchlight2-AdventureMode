@@ -125,6 +125,11 @@ class ReplaceUses(Replace):
   def __init__(self):
     self.pattern='<STRING>USES:'
     self.replacement=f'\t<STRING>USES:1\n'
+    
+class ReplaceIcon(Replace):
+  def __init__(self,tier):
+    self.pattern='<STRING>ICON:'
+    self.replacement=f'\t<STRING>ICON:map_{tier.tier}\n'
 
 NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII']
 TIERS=13
@@ -215,7 +220,7 @@ for d in dungeons:
        ReplaceRarity(t),ReplaceDungeon(dungeonname),
        ReplaceGuid(mapname),ReplaceValue(t),
        ReplaceLevel(t),ReplaceMinLevel(t),
-       ReplaceMaxLevel(t),ReplaceUses()]
+       ReplaceMaxLevel(t),ReplaceUses(),ReplaceIcon(t)]
     a=[OPENPORTAL.format(dungeonname)]
     modify(d.scroll,mapname,replace=r,add=a)
     maps+=1
