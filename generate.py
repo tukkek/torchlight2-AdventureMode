@@ -132,8 +132,8 @@ class ReplaceIcon(Replace):
     self.pattern='<STRING>ICON:'
     self.replacement=f'\t<STRING>ICON:map_{tier.tier}\n'
 
-NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII']
-TIERS=13
+NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI']
+TIERS=len(NUMERALS)
 
 @dataclasses.dataclass
 class Tier:
@@ -150,20 +150,15 @@ class Tier:
   def __post_init__(self):
     t=self.tier
     self.name=NUMERALS[t]
-    if t==0:
+    self.minlevel=t*5
+    if self.minlevel<1:
       self.minlevel=1
-    elif t>10:
-      self.minlevel=100
-    else:
-      self.minlevel=t*10
-    self.maxlevel=(t+1)*10
-    if t>=9:
-      self.offset=(t-9)*10
-    self.mindroplevel=self.maxlevel-20
+    self.maxlevel=100 if t==TIERS-1 else self.minlevel 
+    self.mindroplevel=self.minlevel-10
     if self.mindroplevel<1:
       self.mindroplevel=1
     self.maxdroplevel=self.maxlevel+10
-    self.rarity=TIERS-t
+    self.rarity=2**(TIERS-t-1)
     self.value=t+1
 
 #use scan.py to help generate this
