@@ -132,7 +132,9 @@ class ReplaceIcon(Replace):
     self.pattern='<STRING>ICON:'
     self.replacement=f'\t<STRING>ICON:map_{tier.tier}\n'
 
-NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI']
+NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX',
+          'X','XI','XII','XIII','XIV','XV','XVI']
+DROPRANGE=10 #how many levels above and below to drop a map
 TIERS=len(NUMERALS)
 
 @dataclasses.dataclass
@@ -150,14 +152,12 @@ class Tier:
   def __post_init__(self):
     t=self.tier
     self.name=NUMERALS[t]
-    self.minlevel=t*5
-    if self.minlevel<1:
-      self.minlevel=1
+    self.minlevel=1 if t==0 else t*5
     self.maxlevel=100 if t==TIERS-1 else self.minlevel 
-    self.mindroplevel=self.minlevel-10
+    self.mindroplevel=self.minlevel-DROPRANGE
     if self.mindroplevel<1:
       self.mindroplevel=1
-    self.maxdroplevel=self.maxlevel+10
+    self.maxdroplevel=self.maxlevel+DROPRANGE
     self.rarity=2**(TIERS-t-1)
     self.value=t+1
 
