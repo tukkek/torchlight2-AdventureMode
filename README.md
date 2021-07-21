@@ -16,6 +16,12 @@ Main features:
 
 **A small note to newer players**: the very first map tier begins at level 5 so, depending on many factors (like how much experience you've gained, your choice of difficulty setting, the loot and consumables you've acquired so far, your class and build...) by the time you reach the Estherian Enclave, this might make your first adventure into a portal a bit of a challenge. I personally find it very manageable but if you have any trouble at all, make sure to stock up on potions and full-clear the first area of the game (Echo Pass) for extra gold, items and experience. There is also no shame in going back to base and trying a new map if you can't immediately clear the very first one you opened either! Even if you need to do this once or twice, by the time you reach level 5 the game's difficulty should be exactly the same as the vanilla experience from there onwards.
 
+# Installation
+
+**Steam workshop version:** if you own the game on Steam, simply open the [Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=2553033153) and hit the "subscribe" button. Next time you launch the game, enable the mod as normal through the official Mod Launcher.
+
+**Manual install:** Download the latest version of the mod file from [the GitHub release page](https://github.com/tukkek/torchlight2-AdventureMode/releases) and place it on your Torchlight 2 mod folder. If you're unsure the exact folder location, use the "Open mods folder" button on the official Mod Launcher tool. If needed, check [this video](https://www.youtube.com/watch?v=e5KeocjLUiA) for step-by-step instructions.
+
 # Torchlite II
 
 Check out this mod-list that Adventure Mode was custom-built for: your very own, all-in-one [Torchlight II roguelite pack](https://steamcommunity.com/sharedfiles/filedetails/?id=2553012355)! Includes other mods by both myself and the Torchlight community, featuring also quality-of-life enhancements that aim to modernize the game experience!
