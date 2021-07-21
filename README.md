@@ -4,6 +4,8 @@ This project redesigns Torchlight II's map system by making map scrolls relevant
 
 Maps can be purchased from vendors as soon as you reach the Estherian Enclave (first town hub and second overall area in the game). These scrolls don't require you to unlock or access the Mapworks, simply right-clicking them from your inventory screen will immediately open a portal you can travel through.
 
+You will also want to complete the first quest on Estherian Enclave immediately, which can be done easily by simply talking to Grand Regent Eldrayn and choosing your reward. This will unlock the town portal, which you'll likely find very useful in your adventures.
+
 Main features:
 
 * A 100% viable alternate leveling route, completely independent from the main campaign
