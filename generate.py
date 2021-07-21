@@ -1,13 +1,4 @@
 #!/usr/bin/python3
-#TODO README
-#TODO make repository public after first Workshop alpha
-#TODO use a different map icon for each tier
-#TODO all normal dungeons that don't require changing the exits
-#TODO all bosses that don't require changing the exits
-#TODO all remaining dungeons
-#TODO all wildernesses
-#TODO at some point fixed-level ranges might be worth exploring rather than using offsets, it would give more of a sense of progress and adventure - it should be relatively easy to pull too with the right level ranges, drop ranges and constant scroll rarity
-#TODO make this cross-platform (see #convert for starters)
 import sys,os,shutil,dataclasses
 
 ENCODING='utf-16'
@@ -134,7 +125,6 @@ class ReplaceIcon(Replace):
 
 NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX',
           'X','XI','XII','XIII','XIV','XV','XVI']
-DROPRANGE=10 #how many levels above and below to drop a map
 TIERS=len(NUMERALS)
 
 @dataclasses.dataclass
@@ -152,13 +142,11 @@ class Tier:
   def __post_init__(self):
     t=self.tier
     self.name=NUMERALS[t]
-    self.minlevel=1 if t==0 else t*5
+    self.minlevel=(t+1)*5
     self.maxlevel=100 if t==TIERS-1 else self.minlevel 
-    self.mindroplevel=self.minlevel-DROPRANGE
-    if self.mindroplevel<1:
-      self.mindroplevel=1
-    self.maxdroplevel=self.maxlevel+DROPRANGE
-    self.rarity=2**(TIERS-t-1)
+    self.mindroplevel=1
+    self.maxdroplevel=self.maxlevel+5
+    self.rarity=round(2**(TIERS-t-1))
     self.value=t+1
 
 #use scan.py to help generate this
@@ -200,7 +188,7 @@ maps=0
 for d in dungeons:
   print(f'{d.name}...')
   for t in tiers:
-    basename=f'{d.name.lower()}_{t.tier}'
+    basename=f'{d.name.lower()}_{t.tier+1}'
     while ' ' in basename:
       basename=basename.replace(' ','_')
     dungeonname=f'am_{basename}'
