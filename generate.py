@@ -184,6 +184,7 @@ def modify(path,destination,replace=[],add=[],extension='.dat'):
     for g in generated:
       f.write(g)
   convert(destination)
+  return destination
 
 def makedungeons():
   maps=0
