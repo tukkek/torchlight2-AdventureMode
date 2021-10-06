@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name= "mapnether" Imagefile="media/ui/icons/mapnether/mapnether.dds" NativeHorzRes="1024" NativeVertRes="768" AutoScaled="true">
+	<Image Name="mapnether_0" XPos="1" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapnether_1" XPos="65" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapnether_2" XPos="129" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapnether_3" XPos="193" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapnether_4" XPos="1" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapnether_5" XPos="65" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapnether_6" XPos="129" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapnether_7" XPos="193" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapnether_8" XPos="1" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapnether_9" XPos="65" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapnether_10" XPos="129" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapnether_11" XPos="193" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapnether_12" XPos="1" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapnether_13" XPos="65" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapnether_14" XPos="129" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapnether_15" XPos="193" YPos="193" Width="62" Height="62"/>
+</Imageset>

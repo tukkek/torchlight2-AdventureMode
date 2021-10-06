@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name= "mapwild" Imagefile="media/ui/icons/mapwild/mapwild.dds" NativeHorzRes="1024" NativeVertRes="768" AutoScaled="true">
+	<Image Name="mapwild_0" XPos="1" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapwild_1" XPos="65" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapwild_2" XPos="129" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapwild_3" XPos="193" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapwild_4" XPos="1" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapwild_5" XPos="65" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapwild_6" XPos="129" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapwild_7" XPos="193" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapwild_8" XPos="1" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapwild_9" XPos="65" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapwild_10" XPos="129" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapwild_11" XPos="193" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapwild_12" XPos="1" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapwild_13" XPos="65" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapwild_14" XPos="129" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapwild_15" XPos="193" YPos="193" Width="62" Height="62"/>
+</Imageset>

@@ -119,9 +119,9 @@ class ReplaceUses(Replace):
     self.replacement=f'\t<STRING>USES:1\n'
     
 class ReplaceIcon(Replace):
-  def __init__(self,tier):
+  def __init__(self,icon,tier):
     self.pattern='<STRING>ICON:'
-    self.replacement=f'\t<STRING>ICON:map_{tier.tier}\n'
+    self.replacement=f'\t<STRING>ICON:{icon}_{tier.tier}\n'
 
 NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX',
           'X','XI','XII','XIII','XIV','XV','XVI']
@@ -186,34 +186,33 @@ def modify(path,destination,replace=[],add=[],extension='.dat'):
   convert(destination)
   return destination
 
-def makedungeons():
-  maps=0
-  for d in dungeons:
-    print(f'{d.name}...')
+def makedungeons(maps,icon):
+  for m in maps:
+    print(f'{m.name}...')
     for t in tiers:
-      basename=f'{d.name.lower()}_{t.tier+1}'
+      basename=f'{m.name.lower()}_{t.tier+1}'
       while ' ' in basename:
         basename=basename.replace(' ','_')
       dungeonname=f'am_{basename}'
-      r=[ReplaceDisplayName(f'{d.name} (Tier {t.name})'),
+      r=[ReplaceDisplayName(f'{m.name} (Tier {t.name})'),
         ReplaceName(dungeonname),ReplaceParentDungeon(),
         ReplaceParentTown(),ReplaceMinMatchLevel(t),
         ReplaceMaxMatchLevel(t),ReplaceIsMap()]
       a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n']
-      modify(d.dungeon,dungeonname,replace=r,add=a)
+      modify(m.dungeon,dungeonname,replace=r,add=a)
       mapname=f'am_map_{basename}'
-      r=[ReplaceDisplayName(f'{d.name} map ({t.name})'),
-        ReplaceName(mapname),ReplaceDescription(d,t),
+      r=[ReplaceDisplayName(f'{m.name} map ({t.name})'),
+        ReplaceName(mapname),ReplaceDescription(m,t),
         ReplaceRarity(t),ReplaceDungeon(dungeonname),
         ReplaceGuid(mapname),ReplaceValue(t),
         ReplaceLevel(t),ReplaceMinLevel(t),
-        ReplaceMaxLevel(t),ReplaceUses(),ReplaceIcon(t)]
+        ReplaceMaxLevel(t),ReplaceUses(),ReplaceIcon(icon,t)]
       a=[OPENPORTAL.format(dungeonname)]
-      modify(d.scroll,mapname,replace=r,add=a)
-      maps+=1
-  print()
-  print(f'Generated {len(dungeons)} dungeons, {len(tiers)} tiers, {maps} maps.')
-  print(GUIDWARNING)
+      modify(m.scroll,mapname,replace=r,add=a)
 
 if __name__ == '__main__':
-  makedungeons()
+  makedungeons(dungeons,'mapdg')
+  print()
+  print(f'{len(tiers)} tiers generated:\n'+
+    f'- {len(dungeons)} dungeons\n'+
+    '\n'+GUIDWARNING)

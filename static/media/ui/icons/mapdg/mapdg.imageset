@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name= "mapdg" Imagefile="media/ui/icons/mapdg/mapdg.dds" NativeHorzRes="1024" NativeVertRes="768" AutoScaled="true">
+	<Image Name="mapdg_0" XPos="1" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapdg_1" XPos="65" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapdg_2" XPos="129" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapdg_3" XPos="193" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapdg_4" XPos="1" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapdg_5" XPos="65" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapdg_6" XPos="129" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapdg_7" XPos="193" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapdg_8" XPos="1" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapdg_9" XPos="65" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapdg_10" XPos="129" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapdg_11" XPos="193" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapdg_12" XPos="1" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapdg_13" XPos="65" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapdg_14" XPos="129" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapdg_15" XPos="193" YPos="193" Width="62" Height="62"/>
+</Imageset>

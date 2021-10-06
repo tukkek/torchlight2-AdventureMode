@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Imageset Name= "mapboss" Imagefile="media/ui/icons/mapboss/mapboss.dds" NativeHorzRes="1024" NativeVertRes="768" AutoScaled="true">
+	<Image Name="mapboss_0" XPos="1" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapboss_1" XPos="65" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapboss_2" XPos="129" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapboss_3" XPos="193" YPos="1" Width="62" Height="62"/>
+	<Image Name="mapboss_4" XPos="1" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapboss_5" XPos="65" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapboss_6" XPos="129" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapboss_7" XPos="193" YPos="65" Width="62" Height="62"/>
+	<Image Name="mapboss_8" XPos="1" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapboss_9" XPos="65" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapboss_10" XPos="129" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapboss_11" XPos="193" YPos="129" Width="62" Height="62"/>
+	<Image Name="mapboss_12" XPos="1" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapboss_13" XPos="65" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapboss_14" XPos="129" YPos="193" Width="62" Height="62"/>
+	<Image Name="mapboss_15" XPos="193" YPos="193" Width="62" Height="62"/>
+</Imageset>
