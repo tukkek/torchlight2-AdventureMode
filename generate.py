@@ -188,7 +188,7 @@ def modify(path,destination,replace=[],add=[],extension='.dat'):
 
 def makedungeons(maps,icon):
   for m in maps:
-    print(f'{m.name}...')
+    yield m
     for t in tiers:
       basename=f'{m.name.lower()}_{t.tier+1}'
       while ' ' in basename:
@@ -211,8 +211,17 @@ def makedungeons(maps,icon):
       modify(m.scroll,mapname,replace=r,add=a)
 
 if __name__ == '__main__':
-  makedungeons(dungeons,'mapdg')
+  generate=[
+    {'maps':dungeons,'icon':'mapdg','category':'dungeons'}
+  ]
+  total=sum(len(g['maps']) for g in generate)
+  progress=0
+  for g in generate:
+    for d in makedungeons(g['maps'],g['icon']):
+      print(f'{round(100*progress/total)}% {d.name}')
+      progress+=1
   print()
-  print(f'{len(tiers)} tiers generated:\n'+
-    f'- {len(dungeons)} dungeons\n'+
-    '\n'+GUIDWARNING)
+  print(f'{len(tiers)} tiers generated for:')
+  for g in generate:
+    print(f'- {len(g["maps"])} {g["category"]}\n')
+  print(GUIDWARNING)
