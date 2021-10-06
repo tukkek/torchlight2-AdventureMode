@@ -1,6 +1,6 @@
 # Adventure mode (Torchlight II mod)
 
-This project redesigns Torchlight II's map system by making map scrolls relevant to the entire length of the game rather than being only end-game content meant for level ~50 and higher. Unlike similar mods, it organizes maps into 16 different tiers so that players experience a well-structured sense of progression rather than simply making every scroll in the game scale to the player's level - instead, you can push your build to the limit by finding and travelling to higher-tier maps or make your own pace casually and grind lower-level maps until you're ready to advance to the next step of your journey!
+This project overhauls Torchlight II's map system by transforming the campaign areas and end-game maps into tiered, scaling content from level 1 to over 100. Unlike similar mods, it organizes maps into 16 different tiers so that players experience a well-structured sense of progression rather than simply making every scroll in the game scale to the player's level - instead, you can push your build to the limit by finding and travelling to higher-tier maps or make your own pace casually and grind lower-level maps until you're ready to advance to the next step of your journey!
 
 Maps can be purchased from vendors as soon as you reach the Estherian Enclave (first town hub and second overall area in the game). These scrolls don't require you to unlock or access the Mapworks, simply right-clicking them from your inventory screen will immediately open a portal you can travel through.
 
@@ -8,9 +8,13 @@ You will also want to complete the first quest on Estherian Enclave immediately,
 
 Main features:
 
-* A 100% viable alternate leveling route, completely independent from the main campaign
-* Over 1,000 individual maps!
-* Over 70 individual dungeons to explore!
+* A completely overhauled, 100% viable alternate game mode
+* Over 100 individual area instances from the base game to explore:
+  * ~80 maps / dungeons
+  * ~10 outdoor areas
+  * ~10 nether portals
+  * ~30 bosses
+  * ~10 challenges
 * 16 tiers of maps, allowing you to play at your own pace and decide your own path through the game
 * Content ranging from the very early game up to max level (Tier 16 scales between level 80 and 100)
 * Should be compatible with every other mod that doesn't also change the way map scrolls work
