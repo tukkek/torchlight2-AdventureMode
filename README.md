@@ -1,26 +1,25 @@
 # Adventure mode (Torchlight II mod)
 
-This project overhauls Torchlight II's map system by transforming the campaign areas and end-game maps into tiered, scaling content from level 1 to over 100. Unlike similar mods, it organizes maps into 16 different tiers so that players experience a well-structured sense of progression rather than simply making every scroll in the game scale to the player's level - instead, you can push your build to the limit by finding and travelling to higher-tier maps or make your own pace casually and grind lower-level maps until you're ready to advance to the next step of your journey!
+This project overhauls Torchlight II's map system by transforming the campaign areas and end-game maps into tiered, scaling content from level 1 to 100. Unlike other mods, it organizes maps into 16 different tiers so that players experience a well-structured sense of progression rather than simply making every scroll in the game scale to the player's level - instead, you can push your build to the limit by finding and travelling to higher-tier maps or make your own pace casually and grind lower-level maps until you're ready to advance to the next step of your journey!
 
-Maps can be purchased from vendors as soon as you reach the Estherian Enclave (first town hub and second overall area in the game). These scrolls don't require you to unlock or access the Mapworks, simply right-clicking them from your inventory screen will immediately open a portal you can travel through.
+Maps can be purchased from vendors as soon as you reach the Estherian Enclave (first town hub and second overall area in the game). These scrolls don't require you to unlock or access the Mapworks, simply right-clicking them from your inventory screen will immediately open a portal you can travel through. 
 
-You will also want to complete the first quest on Estherian Enclave immediately, which can be done easily by simply talking to Grand Regent Eldrayn and choosing your reward. This will unlock the town portal, which you'll likely find very useful in your adventures.
+The first and last tier of map scrolls have some limited scaling, with Tier 1 scaling with player level up to level 5 and Tier 16 likweise from level 80 to 100. This is done both to ease lower-level characters into the progression system (especially important on higher difficulties) and to provide an "endgame" for players who want to push to level 100.
 
-Main features:
+# Main features
 
 * A completely overhauled, 100% viable alternate game mode
 * Over 100 individual area instances from the base game to explore:
   * ~80 maps / dungeons
-  * ~10 outdoor areas
-  * ~10 nether portals
   * ~30 bosses
   * ~10 challenges
+  * ~10 nether portals
+  * ~10 outdoor areas
 * 16 tiers of maps, allowing you to play at your own pace and decide your own path through the game
 * Content ranging from the very early game up to max level (Tier 16 scales between level 80 and 100)
 * Should be compatible with every other mod that doesn't also change the way map scrolls work
 * Fully open-source!
 
-**A small note to newer players**: the very first map tier begins at level 5 so, depending on many factors (like how much experience you've gained, your choice of difficulty setting, the loot and consumables you've acquired so far, your class and build...) by the time you reach the Estherian Enclave, this might make your first adventure into a portal a bit of a challenge. I personally find it very manageable but if you have any trouble at all, make sure to stock up on potions and full-clear the first area of the game (Echo Pass) for extra gold, items and experience. There is also no shame in going back to base and trying a new map if you can't immediately clear the very first one you opened either! Even if you need to do this once or twice, by the time you reach level 5 the game's difficulty should be exactly the same as the vanilla experience from there onwards.
 
 # Installation
 

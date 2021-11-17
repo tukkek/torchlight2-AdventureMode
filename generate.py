@@ -159,7 +159,12 @@ class Tier:
     t=self.tier
     self.name=NUMERALS[t]
     self.minlevel=(t+1)*5
-    self.maxlevel=100 if t==TIERS-1 else self.minlevel 
+    self.maxlevel=self.minlevel 
+    if t==0:
+      self.minlevel=1
+      self.maxlevel=5
+    elif t==TIERS-1:
+      self.maxlevel=100
     self.mindroplevel=1
     self.maxdroplevel=self.maxlevel+5
     self.rarity=round(2**(TIERS-t-1))
