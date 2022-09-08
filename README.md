@@ -1,6 +1,6 @@
-# Adventure mode (Torchlight II mod)
+![cover](cover.webp)
 
-This project overhauls Torchlight II's map system by transforming the campaign areas and end-game maps into tiered, scaling content from level 1 to 100. Unlike other mods, it organizes maps into 16 different tiers so that players experience a well-structured sense of progression rather than simply making every scroll in the game scale to the player's level - instead, you can push your build to the limit by travelling to higher-tier maps or make your own pace casually and grind lower-level maps until you're ready to advance to the next step of your journey!
+**Adventure mode** overhauls Torchlight II's map system by transforming the campaign areas and end-game maps into tiered, scaling content from level 1 to 100. Unlike other mods, it organizes maps into 16 different tiers so that players experience a well-structured sense of progression rather than simply making every scroll in the game scale to the player's level - instead, you can push your build to the limit by travelling to higher-tier maps or make your own pace casually and grind lower-level maps until you're ready to advance to the next step of your journey!
 
 Maps can be purchased from vendors as soon as you reach the Estherian Enclave (first town hub and second overall area in the game). These scrolls don't require you to unlock or access the Mapworks, simply right-clicking them from your inventory screen will immediately open a portal you can travel through.
 
