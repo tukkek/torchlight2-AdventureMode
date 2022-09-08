@@ -45,7 +45,7 @@ Check out this mod-list that Adventure Mode was custom-built for: your very own,
 * Add outdoor areas to the pool of map scrolls
 * Boss maps that teleport you directly to a boss encounter (including campaign-only bosses)
 
-Full list of pending tasks available [here](https://github.com/tukkek/torchlight2-AdventureMode/issues).
+Full list of pending tasks and known-issues available [here](https://github.com/tukkek/torchlight2-AdventureMode/issues).
 
 # Contributing
 
