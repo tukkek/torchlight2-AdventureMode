@@ -24,6 +24,10 @@ Since you can't find any spell vendors in this mode, a guaranteed spell drop is 
 * Should be compatible with every other mod that doesn't also change the way map scrolls work
 * Fully open-source!
 
+# Contact and support
+
+For support and discussion, [join the Discord](https://discord.gg/5sXXcwPCSP)!
+
 # Installation
 
 **Steam workshop version:** if you own the game on Steam, simply open the [Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=2553033153) and hit the "subscribe" button. Next time you launch the game, enable the mod as normal through the official Mod Launcher.
