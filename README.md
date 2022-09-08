@@ -36,16 +36,11 @@ Check out this mod-list that Adventure Mode was custom-built for: your very own,
 
 As with most roguelike games, you can be dealt a rougher hand early on due to the randomness, when your character is at its weakest. If you have any trouble, try sticking to Tier 1 maps until you have at least a full set of gear from the blacksmith. Also, consider trying this on Casual difficulty at first while you're still learning how this mode's progression works.
 
-The first and last tier of map scrolls have some limited scaling, with Tier 1 scaling with player level up to level 5 and Tier 16 likweise from level 80 to 100. This is done both to ease lower-level characters into the progression system (especially important on higher difficulties) and to provide an "endgame" for players who want to push to level 100.
+The first and last tier of map scrolls have some limited scaling, with Tier 1 scaling with player level up to level 5 and Tier 16 likewise from level 80 to 100. This is done both to ease lower-level characters into the progression system (especially important on higher difficulties) and to provide an "endgame" for players who want to push to level 100.
 
 Since you can't find any spell vendors in this mode, a guaranteed spell drop is given with every boss and gold chest. This shouldn't impact balance too much as most spells are tuned around their mana cost and there is a hard limit to the number of spells you can have at once (even if you only go for passives). It also gives a nice incentive (and reward) to investing more time into longer dungeon and higher-risk boss maps.
 
 # Planned features
-
-* More scaling options for Tier 16 maps, for players who want extra challenge at end-game
-* Add campaign (non-endgame) dungeons to the map pool
-* Add outdoor areas to the pool of map scrolls
-* Boss maps that teleport you directly to a boss encounter (including campaign-only bosses)
 
 Full list of pending tasks and known-issues available [here](https://github.com/tukkek/torchlight2-AdventureMode/issues).
 
