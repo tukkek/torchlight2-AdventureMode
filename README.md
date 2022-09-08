@@ -6,6 +6,8 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 
 The first and last tier of map scrolls have some limited scaling, with Tier 1 scaling with player level up to level 5 and Tier 16 likweise from level 80 to 100. This is done both to ease lower-level characters into the progression system (especially important on higher difficulties) and to provide an "endgame" for players who want to push to level 100.
 
+For support and discussion, [join the Discord](https://discord.gg/5sXXcwPCSP)!
+
 # Main features
 
 * A completely overhauled, 100% viable alternate game mode
