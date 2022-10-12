@@ -7,3 +7,5 @@ echo "Converting warps..."
 nice python3 convertwarps.py
 echo "Generating maps..."
 nice python3 generate.py
+echo "Altering zoom..."
+nice python3 zoom.py

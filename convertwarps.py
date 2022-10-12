@@ -35,9 +35,13 @@ def scan(query):
     except:
       continue
     
-scan(f'{generate.REFERENCE}/MEDIA/LAYOUTS/**/*.LAYOUT')
-scan(f'{generate.REFERENCE}/MEDIA/LEVELSETS/PROPS/**/*.LAYOUT')
-for w in sorted(warpers):
-  if w in dungeons:
-    w='./'+w.replace(generate.REFERENCE,'')
-    generate.modify(w,os.path.basename(w),replace=r,extension='')
+def translate(path):
+  return './'+path.replace(generate.REFERENCE,'')
+    
+if __name__=='__main__':
+  scan(f'{generate.REFERENCE}/MEDIA/LAYOUTS/**/*.LAYOUT')
+  scan(f'{generate.REFERENCE}/MEDIA/LEVELSETS/PROPS/**/*.LAYOUT')
+  for w in sorted(warpers):
+    if w in dungeons:
+      w=translate(w)
+      generate.modify(w,os.path.basename(w),replace=r,extension='')

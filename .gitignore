@@ -1,3 +1,4 @@
 reference
 *.BINDAT
 guts
+__pycache__/
