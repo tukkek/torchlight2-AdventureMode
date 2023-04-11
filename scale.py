@@ -7,16 +7,6 @@ class ClearLevel(generate.Replace):
     self.pattern='<INTEGER>LEVEL:'
     self.replacement=''
     
-class ClearMinLevel(generate.Replace):
-  def __init__(self):
-    self.pattern='<INTEGER>PLAYER_LVL_MATCH_MIN:'
-    self.replacement=''
-    
-class ClearMaxLevel(generate.Replace):
-  def __init__(self):
-    self.pattern='<INTEGER>PLAYER_LVL_MATCH_MAX:'
-    self.replacement=''
-
 @dataclasses.dataclass
 class Dungeon:
   display:str
@@ -31,12 +21,12 @@ def scan():#update dungeons manually
   raise Exception('Exit')
 
 #scan()
-replace=[generate.ReplaceParentDungeon(),generate.ReplaceParentTown(),ClearMinLevel(),ClearMaxLevel(),ClearLevel()]
-add=['\t<INTEGER>PLAYER_LVL_MATCH_MIN:1\n','\t<INTEGER>PLAYER_LVL_MATCH_MAX:100\n']
+replace=[generate.ReplaceParentDungeon(),generate.ReplaceParentTown(),generate.ReplaceMinMatchLevel(generate.tiers[0]),
+         generate.ReplaceMaxMatchLevel(generate.tiers[-1]),ClearLevel()]
 for d in dungeons:
   if d.name=='town1':#static file
     continue
   print(d.name+'...')
-  generate.modify(f'MEDIA/DUNGEONS/{d.name}.DAT',d.name,replace,add)
+  generate.modify(f'MEDIA/DUNGEONS/{d.name}.DAT',d.name,replace)
   filename=f'{d.name}.dat'
   os.rename(f'media/dungeons/{filename}',f'media/dungeons/{filename.upper()}')
