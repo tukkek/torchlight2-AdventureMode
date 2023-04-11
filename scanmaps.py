@@ -15,22 +15,23 @@ def findnames(path):
   return names
 
 def scan(query):
-  global dungeons
+  scanned=[]
   for m in glob.glob(query):
     if 'QA_ARENA' in m:
       print(f'skip arena: {m}...')
       continue
     try:
-      dungeonname=os.path.basename(m)
-      dungeonname=dungeonname[:dungeonname.index('.')]
-      #dungeonname=findnames(m)[0]
-      displayname=findnames(f'{REFERENCE}/{DIRDUNGEONS}/{dungeonname.upper()}.DAT')[0]
-      dungeons.append(f"Dungeon('{displayname}','{dungeonname.lower()}')")
+      name=os.path.basename(m)
+      name=name[:name.index('.')]
+      #name=findnames(m)[0]
+      displayname=findnames(f'{REFERENCE}/{DIRDUNGEONS}/{name.upper()}.DAT')[0]
+      scanned.append(f'Dungeon("{displayname}","{name.lower()}")')
     except Exception as e:
       print('error: '+m)
       raise e
-    
-scan(f'{REFERENCE}/{DIRDUNGEONS}/MAP_*.DAT')
-scan(f'{REFERENCE}/{DIRDUNGEONS}/MAPROOM_*.DAT')
+  return scanned
+
+dungeons.extend(scan(f'{REFERENCE}/{DIRDUNGEONS}/MAP_*.DAT'))
+dungeons.extend(scan(f'{REFERENCE}/{DIRDUNGEONS}/MAPROOM_*.DAT'))
 print(f"[{','.join(dungeons)}]")
 print(f'{len(dungeons)} dungeons found')
