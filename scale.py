@@ -26,7 +26,6 @@ replace=[generate.ReplaceParentDungeon(),generate.ReplaceParentTown(),generate.R
 for d in dungeons:
   if d.name=='town1':#static file
     continue
-  print(d.name+'...')
   generate.modify(f'MEDIA/DUNGEONS/{d.name}.DAT',d.name,replace)
   filename=f'{d.name}.dat'
   os.rename(f'media/dungeons/{filename}',f'media/dungeons/{filename.upper()}')
