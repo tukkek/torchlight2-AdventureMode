@@ -209,7 +209,7 @@ def modify(path,destination,replace=[],add=[],strata='',extension='.dat'):
         break
     else:
       generated.append(line)
-      if len(strata)>0 and '[STRATA' in line:
+      if len(strata)>0 and '[STRATA0]' in line:
         generated.extend(f'\t\t{line}\n' for line in strata.split('\n'))
   for a in add:
     generated.insert(len(generated)-1,a)
