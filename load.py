@@ -3,7 +3,6 @@ import glob,os,dataclasses
 
 DIRDUNGEONS='MEDIA/DUNGEONS'
 REFERENCE='/media/sda2/windows/steam/steamapps/common/Torchlight II/'#TODO make argument
-DUPLICATES=set()
 DIRMAPS='media/units/items/maps'
 
 @dataclasses.dataclass
@@ -16,9 +15,6 @@ class Dungeon:
     return f'{path}/{filename}.dat'
   
   def __post_init__(self):
-    if self.dungeonname in DUPLICATES:
-      raise Exception('Duplicate name: '+self.name)
-    DUPLICATES.add(self.dungeonname)
     self.dungeon=self.topath(DIRDUNGEONS,self.dungeonname)
     self.scroll=self.topath(DIRMAPS,self.scroll)
     
@@ -34,6 +30,7 @@ def findnames(path):
 
 def scan(query='*.DAT',prefix=f'{REFERENCE}/{DIRDUNGEONS}/'):
   scanned=[]
+  duplicates=set()
   for m in glob.glob(prefix+query):
     if 'QA_ARENA' in m:
       print(f'skip arena: {m}...')
@@ -43,7 +40,11 @@ def scan(query='*.DAT',prefix=f'{REFERENCE}/{DIRDUNGEONS}/'):
       name=name[:name.index('.')]
       #name=findnames(m)[0]
       displayname=findnames(f'{REFERENCE}/{DIRDUNGEONS}/{name.upper()}.DAT')[0]
-      scanned.append(Dungeon(displayname,name.lower()))
+      d=Dungeon(displayname,name.lower())
+      if d.dungeonname in duplicates:
+        raise Exception('Duplicate name: '+self.name)
+      duplicates.add(d.dungeonname)
+      scanned.append(d)
     except Exception as e:
       print('error: '+m)
       raise e
