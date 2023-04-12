@@ -38,7 +38,6 @@ def scan(query='*.DAT',prefix=f'{REFERENCE}/{DIRDUNGEONS}/'):
     try:
       name=os.path.basename(m)
       name=name[:name.index('.')]
-      #name=findnames(m)[0]
       displayname=findnames(f'{REFERENCE}/{DIRDUNGEONS}/{name.upper()}.DAT')[0]
       d=Dungeon(displayname,name.lower())
       if d.dungeonname in duplicates:

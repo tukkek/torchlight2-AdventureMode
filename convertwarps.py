@@ -44,4 +44,4 @@ if __name__=='__main__':
   for w in sorted(warpers):
     if w in dungeons:
       w=translate(w)
-      generate.modify(w,os.path.basename(w),replace=r,extension='')
+      generate.modify(w,os.path.basename(w),replace=r,strata='',extension='')

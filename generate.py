@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-import sys,os,shutil,dataclasses,load
+import sys,os,shutil,dataclasses,load,goal
 
+DEBUG=False
 ENCODING='utf-16'
 DIRMEDIA='media'
 DIRDUNGEONS='media/dungeons'
@@ -34,9 +35,14 @@ class Replace:
   replacement:str #if False, skip line
   
 class ReplaceDescription(Replace):
-  def __init__(self,dungeon,tier):
+  def __init__(self,dungeon,tier,goal=False):
     self.pattern='<TRANSLATE>DESCRIPTION:'
-    self.replacement=f'\t<TRANSLATE>DESCRIPTION:Right-click to enter {dungeon.name} (Tier {tier.name})\n'
+    self.replacement=f'\t<TRANSLATE>DESCRIPTION:'
+    if goal:
+      goal=''.join(g for g in goal if str.isalpha(g))
+      self.replacement+=f'May contain: {goal}.\n'
+    else:
+      self.replacement+=f'Right-click to enter {dungeon.name} (Tier {tier.name})\n'
 
 class ReplaceDisplayName(Replace):
   def __init__(self,to):
@@ -112,7 +118,7 @@ class ReplaceIcon(Replace):
   def __init__(self,icon,tier):
     self.pattern='<STRING>ICON:'
     self.replacement=f'\t<STRING>ICON:{icon}_{tier.tier}\n'
-
+    
 '''TODO
 this does not work as intended, if you enter a map scroll portal a second time, it will be as it was, see http://torchmodders.com/forums/modding-questions/weird-guts-editor-bugs/ ( https://archive.ph/wip/BdA0v )
 thankfully the chance of a repeat scroll of the same tier is less than 1% for each map generated in that tier and i've never had it happen while playtesting
@@ -127,6 +133,16 @@ class ReplaceVolatile(Replace):
 class ReplaceIsMap(Replace):#removed with False then added in makedungeons
   def __init__(self):
     self.pattern='<BOOL>MAP:'
+    self.replacement=False
+
+class ClearGoalsMinMax(Replace):
+  def __init__(self):
+    self.pattern='<FLOAT>NPCS_'
+    self.replacement=False
+
+class ClearGoals(Replace):
+  def __init__(self):
+    self.pattern='<STRING>NPCSPAWNCLASS'
     self.replacement=False
 
 @dataclasses.dataclass
@@ -161,9 +177,10 @@ class Category:
   maps:list
   icon:str
   category:str
+  goals:bool=False
 
 tiers=[Tier(i) for i in range(0,TIERS)]
-categories=[Category(MAPS,'mapdg','maps'),Category(DUNGEONS,'mapdg','dungeons'),Category(WILDS,'mapwild','wilderness'),
+categories=[Category(MAPS,'mapdg','maps',True),Category(DUNGEONS,'mapdg','dungeons',True),Category(WILDS,'mapwild','wilderness',True),
             Category(NETHER,'mapnether','netherrealm'),Category(BOSSES,'mapboss','bosses'),Category(CHALLENGES,'mapphase','challenges'),]
 
 '''
@@ -177,17 +194,23 @@ def convert(destination):
   os.system(f'cat {destination} | unix2dos -u  > {destination}.tmp')
   os.system(f'mv {destination}.tmp {destination}')
 
-def modify(path,destination,replace=[],add=[],extension='.dat'):
+def read(path):
+  with open(REFERENCE+path.upper(),encoding=ENCODING) as lines:
+    for l in lines:
+      yield l
+
+def modify(path,destination,replace=[],add=[],strata='',extension='.dat'):
   generated=[]
-  with open(REFERENCE+path.upper(),encoding=ENCODING) as f:
-    for line in f:
-      for r in replace:
-        if r.pattern in line:
-          if r.replacement:
-            generated.append(r.replacement)
-          break
-      else:
-        generated.append(line)
+  for line in read(path):
+    for r in replace:
+      if r.pattern in line:
+        if r.replacement:
+          generated.append(r.replacement)
+        break
+    else:
+      generated.append(line)
+      if len(strata)>0 and '[STRATA' in line:
+        generated.extend(f'\t\t{line}\n' for line in strata.split('\n'))
   for a in add:
     generated.insert(len(generated)-1,a)
   destination=f'{os.path.dirname(path)}/{destination}{extension}'.lower()
@@ -198,29 +221,41 @@ def modify(path,destination,replace=[],add=[],extension='.dat'):
   convert(destination)
   return destination
 
-def makedungeons(maps,icon):
-  for m in maps:
+def makedungeon(category,d,tier,affix='',goal=False):
+  name=f'{d.dungeonname}_{tier.tier+1}'
+  if len(affix)>0:
+    name+=f"_{affix.replace(' ','_')}"
+  dungeonname=f'am_{name}'
+  r=[ReplaceDisplayName(f'{d.name} (Tier {tier.name})'),
+    ReplaceName(dungeonname),ReplaceParentDungeon(),
+    ReplaceParentTown(),ReplaceMinMatchLevel(tier),
+    ReplaceMaxMatchLevel(tier),ReplaceIsMap(),
+    ClearGoalsMinMax(),ClearGoals(),]
+  a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{tier.offset}\n','\t<BOOL>MAP:true\n']
+  g=goal.reward() if goal else ''
+  modify(d.dungeon,dungeonname,replace=r,add=a,strata=g)
+  mapname=f'am_map_{name}'
+  r=[ReplaceDisplayName(f'{d.name} map ({tier.name})'),
+    ReplaceName(mapname),ReplaceDescription(d,tier,affix),
+    ReplaceRarity(tier),ReplaceDungeon(dungeonname),
+    ReplaceGuid(mapname),ReplaceValue(tier),
+    ReplaceLevel(tier),ReplaceMinLevel(tier),
+    ReplaceMaxLevel(tier),ReplaceUses(),ReplaceIcon(category.icon,tier)]
+  a=[OPENPORTAL.format(dungeonname)]
+  modify(d.scroll,mapname,replace=r,add=a)
+
+def makedungeons(category):
+  for m in category.maps:
     d=FILES[m.lower()]
     d.dungeonname=m #TODO preserves case, probably unnecesssary
     yield d
     for t in tiers:
-      name=f'{d.dungeonname}_{t.tier+1}'
-      dungeonname=f'am_{name}'
-      r=[ReplaceDisplayName(f'{d.name} (Tier {t.name})'),
-        ReplaceName(dungeonname),ReplaceParentDungeon(),
-        ReplaceParentTown(),ReplaceMinMatchLevel(t),
-        ReplaceMaxMatchLevel(t),ReplaceIsMap()]
-      a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{t.offset}\n','\t<BOOL>MAP:true\n']
-      modify(d.dungeon,dungeonname,replace=r,add=a)
-      mapname=f'am_map_{name}'
-      r=[ReplaceDisplayName(f'{d.name} map ({t.name})'),
-        ReplaceName(mapname),ReplaceDescription(d,t),
-        ReplaceRarity(t),ReplaceDungeon(dungeonname),
-        ReplaceGuid(mapname),ReplaceValue(t),
-        ReplaceLevel(t),ReplaceMinLevel(t),
-        ReplaceMaxLevel(t),ReplaceUses(),ReplaceIcon(icon,t)]
-      a=[OPENPORTAL.format(dungeonname)]
-      modify(d.scroll,mapname,replace=r,add=a)
+      if category.goals:
+        for affix,g in goal.reward():
+          makedungeon(category,d,t,affix,g)
+      else:
+        makedungeon(category,d,t)
+        
 
 if __name__ == '__main__':
   for dungeon in load.scan():
@@ -229,8 +264,10 @@ if __name__ == '__main__':
     FILES[c.lower()].name='Challenge'
   total=sum(len(c.maps) for c in categories)
   progress=0
+  if DEBUG:
+    categories=[categories[1]]#1=dungeons -1=challenges
   for c in categories:
-    for d in makedungeons(c.maps,c.icon):
+    for d in makedungeons(c):
       print(f'{round(100*progress/total)}% {d.name}')
       progress+=1
   print()

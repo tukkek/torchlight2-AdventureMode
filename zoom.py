@@ -10,4 +10,4 @@ REPLACE=[ReplaceZoom()]
  
 for path in glob.glob(f'{generate.REFERENCE}/MEDIA/LAYOUTS/**/*.TEMPLATE',recursive=True):
   path=convertwarps.translate(path)
-  generate.modify(path,os.path.basename(path),replace=REPLACE,extension='')
+  generate.modify(path,os.path.basename(path),replace=REPLACE,strata='',extension='')
