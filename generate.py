@@ -18,7 +18,15 @@ OPENPORTAL='''	[EFFECT]
 PARENT='ESTHERIANCITY'
 GUIDWARNING='''For extra safety make sure to check GUIDs on GUTS before publishing your mod.
 If there are any collisions, regenerating the files again should solve the problem.'''
-DUNGEONS={}
+FILES={}
+NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI']
+TIERS=len(NUMERALS)
+MAPS=['map_catacombs_b_66', 'map_estherian_a', 'map_icecaves_a', 'map_catacombs_2', 'map_catacombs_3', 'map_catacombs_a_105', 'map_catacombs_a_56', 'map_catacombs_a_66', 'map_catacombs_a_76', 'map_catacombs_a_86', 'map_catacombs_a_96', 'map_catacombs_b_105', 'map_catacombs_b_56', 'map_catacombs_b_76', 'map_catacombs_b_86', 'map_catacombs_b_96', 'map_catacombs_c_105', 'map_catacombs_c_56', 'map_catacombs_c_66', 'map_catacombs_c_76', 'map_catacombs_c_86', 'map_catacombs_c_96', 'map_caves_a', 'map_caves_a_105', 'map_caves_a_56', 'map_caves_a_66', 'map_caves_a_76', 'map_caves_a_86', 'map_caves_a_96', 'map_dragon_a', 'map_dragon_a105', 'map_dragon_a56-65', 'map_dragon_a66-75', 'map_dragon_a76-85', 'map_dragon_a86-95', 'map_dragon_a96-105', 'map_dwarvenlabs_a', 'map_dwarvenlabs_a_105', 'map_dwarvenlabs_a_56', 'map_dwarvenlabs_a_66', 'map_dwarvenlabs_a_76', 'map_dwarvenlabs_a_86', 'map_dwarvenlabs_a_96', 'map_estherian_b', 'map_estherian_b105', 'map_estherian_b56', 'map_estherian_b66', 'map_estherian_b76', 'map_estherian_b86', 'map_estherian_b96', 'map_estherian_c', 'map_estherian_c_105', 'map_estherian_c_56', 'map_estherian_c_66', 'map_estherian_c_76', 'map_estherian_c_86', 'map_estherian_c_96', 'map_icecaves_a_105', 'map_icecaves_a_56', 'map_icecaves_a_66', 'map_icecaves_a_76', 'map_icecaves_a_86', 'map_icecaves_a_96', 'map_vaults_a', 'map_vaults_a105', 'map_vaults_a56', 'map_vaults_a66', 'map_vaults_a76', 'map_vaults_a86', 'map_vaults_a96', 'maproom_catacombs_1']
+DUNGEONS=['A3-banepits', 'a3werewolfcellar', 'A2Z1_CURSEDFEAR_DESERTCAVES', 'desertcaves', 'NG_NW_ICELABS', 'NG_SE_ICELABS', 'witherways']
+BOSSES=['A3-3SISTERS', 'arenaofslaughter', 'cacklespitsrealm', 'cultistslair', 'deadshoals', 'jehannum', 'koraricave', 'manavent', 'ngbearcave', 'ngdwarfarmory', 'piratecove', 'a3quarrymine', 'riftkeep', 'thesawmill', 'a3-scrapworks', 'slaversden', 'manticorelair', 'swarmpoint', 'desertcatacombs', 'GOBLIN_EMBERCAVES', 'thegardenoftears', 'thing', 'towerofthemoon', 'undercurrents', 'vaultofsouls', 'a3-warforge', 'wellspringtreasury', 'crowspass_spidercave']
+WILDS=['a3-battlefield', 'a3blightbogs', 'broodhive', 'crowspass', 'a3pass1', 'frostedhills', 'hauntedquarter', 'osseanwastes', 'pathofhonoreddead', 'a3pass2', 'saltbarrens', 'templesteppes', 'vulturepass']
+NETHER=['nether', 'nether_a1z1', 'nether_a1z2', 'nether_a2z1', 'nether_a2z2', 'nether_a3z1', 'nether_a3z2']
+CHALLENGES=['phasebeast_a1z1_all', 'phasebeast_a1z2_all', 'phasebeast_a2z1_all', 'phasebeast_a2z2_all', 'phasebeast_a2z2_JT', 'phasebeast_a3z1_all', 'phasebeast_a3z2_all', 'phasebeast_a3z2_lava', 'phasepillar', 'luminousarena']
 
 @dataclasses.dataclass
 class Replace:
@@ -120,11 +128,6 @@ class ReplaceIsMap(Replace):#removed with False then added in makedungeons
   def __init__(self):
     self.pattern='<BOOL>MAP:'
     self.replacement=False
-    
-    
-NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX',
-          'X','XI','XII','XIII','XIV','XV','XVI']
-TIERS=len(NUMERALS)
 
 @dataclasses.dataclass
 class Tier:
@@ -152,14 +155,16 @@ class Tier:
     self.maxdroplevel=self.maxlevel+5
     self.rarity=round(2**(TIERS-t-1))
     self.value=t+1
+    
+@dataclasses.dataclass
+class Category:
+  maps:list
+  icon:str
+  category:str
 
 tiers=[Tier(i) for i in range(0,TIERS)]
-maps=['map_catacombs_b_66', 'map_estherian_a', 'map_icecaves_a', 'map_catacombs_2', 'map_catacombs_3', 'map_catacombs_a_105', 'map_catacombs_a_56', 'map_catacombs_a_66', 'map_catacombs_a_76', 'map_catacombs_a_86', 'map_catacombs_a_96', 'map_catacombs_b_105', 'map_catacombs_b_56', 'map_catacombs_b_76', 'map_catacombs_b_86', 'map_catacombs_b_96', 'map_catacombs_c_105', 'map_catacombs_c_56', 'map_catacombs_c_66', 'map_catacombs_c_76', 'map_catacombs_c_86', 'map_catacombs_c_96', 'map_caves_a', 'map_caves_a_105', 'map_caves_a_56', 'map_caves_a_66', 'map_caves_a_76', 'map_caves_a_86', 'map_caves_a_96', 'map_dragon_a', 'map_dragon_a105', 'map_dragon_a56-65', 'map_dragon_a66-75', 'map_dragon_a76-85', 'map_dragon_a86-95', 'map_dragon_a96-105', 'map_dwarvenlabs_a', 'map_dwarvenlabs_a_105', 'map_dwarvenlabs_a_56', 'map_dwarvenlabs_a_66', 'map_dwarvenlabs_a_76', 'map_dwarvenlabs_a_86', 'map_dwarvenlabs_a_96', 'map_estherian_b', 'map_estherian_b105', 'map_estherian_b56', 'map_estherian_b66', 'map_estherian_b76', 'map_estherian_b86', 'map_estherian_b96', 'map_estherian_c', 'map_estherian_c_105', 'map_estherian_c_56', 'map_estherian_c_66', 'map_estherian_c_76', 'map_estherian_c_86', 'map_estherian_c_96', 'map_icecaves_a_105', 'map_icecaves_a_56', 'map_icecaves_a_66', 'map_icecaves_a_76', 'map_icecaves_a_86', 'map_icecaves_a_96', 'map_vaults_a', 'map_vaults_a105', 'map_vaults_a56', 'map_vaults_a66', 'map_vaults_a76', 'map_vaults_a86', 'map_vaults_a96', 'maproom_catacombs_1']
-dungeons=['A3-banepits', 'a3werewolfcellar', 'A2Z1_CURSEDFEAR_DESERTCAVES', 'desertcaves', 'NG_NW_ICELABS', 'NG_SE_ICELABS', 'witherways']
-bosses=['A3-3SISTERS', 'arenaofslaughter', 'cacklespitsrealm', 'cultistslair', 'deadshoals', 'jehannum', 'koraricave', 'manavent', 'ngbearcave', 'ngdwarfarmory', 'piratecove', 'a3quarrymine', 'riftkeep', 'thesawmill', 'a3-scrapworks', 'slaversden', 'manticorelair', 'swarmpoint', 'desertcatacombs', 'GOBLIN_EMBERCAVES', 'thegardenoftears', 'thing', 'towerofthemoon', 'undercurrents', 'vaultofsouls', 'a3-warforge', 'wellspringtreasury', 'crowspass_spidercave']
-wilds=['a3-battlefield', 'a3blightbogs', 'broodhive', 'crowspass', 'a3pass1', 'frostedhills', 'hauntedquarter', 'osseanwastes', 'pathofhonoreddead', 'a3pass2', 'saltbarrens', 'templesteppes', 'vulturepass']
-nether=['nether', 'nether_a1z1', 'nether_a1z2', 'nether_a2z1', 'nether_a2z2', 'nether_a3z1', 'nether_a3z2']
-challenges=['phasebeast_a1z1_all', 'phasebeast_a1z2_all', 'phasebeast_a2z1_all', 'phasebeast_a2z2_all', 'phasebeast_a2z2_JT', 'phasebeast_a3z1_all', 'phasebeast_a3z2_all', 'phasebeast_a3z2_lava', 'phasepillar', 'luminousarena']
+categories=[Category(MAPS,'mapdg','maps'),Category(DUNGEONS,'mapdg','dungeons'),Category(WILDS,'mapwild','wilderness'),
+            Category(NETHER,'mapnether','netherrealm'),Category(BOSSES,'mapboss','bosses'),Category(CHALLENGES,'mapphase','challenges'),]
 
 '''
 This is a shame but I have been unable to generate binary-identical .dat files with Python alone or understand 100% why I can't.
@@ -195,7 +200,7 @@ def modify(path,destination,replace=[],add=[],extension='.dat'):
 
 def makedungeons(maps,icon):
   for m in maps:
-    d=DUNGEONS[m.lower()]
+    d=FILES[m.lower()]
     d.dungeonname=m #TODO preserves case, probably unnecesssary
     yield d
     for t in tiers:
@@ -219,26 +224,18 @@ def makedungeons(maps,icon):
 
 if __name__ == '__main__':
   for dungeon in load.scan():
-    DUNGEONS[dungeon.dungeonname.lower()]=dungeon
-  for c in challenges:
-    DUNGEONS[c.lower()].name='Challenge'
-  generate=[
-    {'maps':maps,'icon':'mapdg','category':'maps'},
-    {'maps':dungeons,'icon':'mapdg','category':'dungeons'},
-    {'maps':wilds,'icon':'mapwild','category':'wilderness'},
-    {'maps':nether,'icon':'mapnether','category':'netherrealm'},
-    {'maps':bosses,'icon':'mapboss','category':'bosses'},
-    {'maps':challenges,'icon':'mapphase','category':'challenges'},
-  ]
-  total=sum(len(g['maps']) for g in generate)
+    FILES[dungeon.dungeonname.lower()]=dungeon
+  for c in CHALLENGES:
+    FILES[c.lower()].name='Challenge'
+  total=sum(len(c.maps) for c in categories)
   progress=0
-  for g in generate:
-    for d in makedungeons(g['maps'],g['icon']):
+  for c in categories:
+    for d in makedungeons(c.maps,c.icon):
       print(f'{round(100*progress/total)}% {d.name}')
       progress+=1
   print()
   print(f'{len(tiers)} tiers generated for:')
-  for g in generate:
-    print(f'- {len(g["maps"])} {g["category"]}')
+  for c in categories:
+    print(f'- {len(c.maps)} {c.category}')
   print()
   print(GUIDWARNING)
