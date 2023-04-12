@@ -39,7 +39,7 @@ class ReplaceDescription(Replace):
     self.pattern='<TRANSLATE>DESCRIPTION:'
     self.replacement=f'\t<TRANSLATE>DESCRIPTION:'
     if goal:
-      goal=''.join(g for g in goal if str.isalpha(g))
+      goal=''.join(g for g in goal if not str.isnumeric(g))
       self.replacement+=f'May contain: {goal}.\n'
     else:
       self.replacement+=f'Right-click to enter {dungeon.name} (Tier {tier.name})\n'
