@@ -18,7 +18,7 @@ OPENPORTAL='''	[EFFECT]
 PARENT='ESTHERIANCITY'
 GUIDWARNING='''For extra safety make sure to check GUIDs on GUTS before publishing your mod.
 If there are any collisions, regenerating the files again should solve the problem.'''
-DUNGEONS={d.dungeonname.lower():d for d in load.scan()}
+DUNGEONS={}
 
 @dataclasses.dataclass
 class Replace:
@@ -218,6 +218,10 @@ def makedungeons(maps,icon):
       modify(d.scroll,mapname,replace=r,add=a)
 
 if __name__ == '__main__':
+  for dungeon in load.scan():
+    DUNGEONS[dungeon.dungeonname.lower()]=dungeon
+  for c in challenges:
+    DUNGEONS[c.lower()].name='Challenge'
   generate=[
     {'maps':maps,'icon':'mapdg','category':'maps'},
     {'maps':dungeons,'icon':'mapdg','category':'dungeons'},
@@ -226,8 +230,6 @@ if __name__ == '__main__':
     {'maps':bosses,'icon':'mapboss','category':'bosses'},
     {'maps':challenges,'icon':'mapphase','category':'challenges'},
   ]
-  for c in challenges:
-    DUNGEONS[c.lower()].name='Challenge'
   total=sum(len(g['maps']) for g in generate)
   progress=0
   for g in generate:
