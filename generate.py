@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-import sys,os,shutil,dataclasses,load,goal,args
+import sys,os,shutil,dataclasses,load,goal,args,summary
 
-DEBUG=False
 ENCODING='utf-16'
 DIRMEDIA='media'
 DIRDUNGEONS='media/dungeons'
@@ -40,7 +39,7 @@ class ReplaceDescription(Replace):
     self.replacement=f'\t<TRANSLATE>DESCRIPTION:'
     if goal:
       goal=''.join(g for g in goal if not str.isnumeric(g))
-      self.replacement+=f'May contain: {goal}.\n'
+      self.replacement+=f'May contain {goal}.\n'
     else:
       self.replacement+=f'Right-click to enter {dungeon.name} (Tier {tier.name})\n'
 
@@ -182,6 +181,7 @@ class Category:
 tiers=[Tier(i) for i in range(0,TIERS)]
 categories=[Category(MAPS,'mapdg','maps',True),Category(DUNGEONS,'mapdg','dungeons',True),Category(WILDS,'mapwild','wilderness',True),
             Category(NETHER,'mapnether','netherrealm'),Category(BOSSES,'mapboss','bosses'),Category(CHALLENGES,'mapphase','challenges'),]
+count=0
 
 '''
 This is a shame but I have been unable to generate binary-identical .dat files with Python alone or understand 100% why I can't.
@@ -243,13 +243,15 @@ def makedungeon(category,d,tier,goal=False):
     ReplaceMaxLevel(tier),ReplaceUses(),ReplaceIcon(category.icon,tier)]
   a=[OPENPORTAL.format(dungeonname)]
   modify(d.scroll,mapname,replace=r,add=a)
+  global count
+  count+=1
 
 def makedungeons(category):
   for m in category.maps:
     d=FILES[m.lower()]
     d.dungeonname=m #TODO preserves case, probably unnecesssary
     yield d
-    for t in tiers:
+    for t in tiers[0:1] if args.debug else tiers:
       if category.goals:
         for g in goal.reward():
           makedungeon(category,d,t,g)
@@ -264,15 +266,11 @@ if __name__ == '__main__':
     FILES[c.lower()].name='Challenge'
   total=sum(len(c.maps) for c in categories)
   progress=0
-  if DEBUG:
-    categories=[categories[1]]#1=dungeons -1=challenges
-  for c in categories:
+  for c in categories[1:2] if args.debug else categories:
     for d in makedungeons(c):
       print(f'{round(100*progress/total)}% {d.name}')
       progress+=1
   print()
-  print(f'{len(tiers)} tiers generated for:')
-  for c in categories:
-    print(f'- {len(c.maps)} {c.category}')
+  summary.show(count)
   print()
   print(GUIDWARNING)
