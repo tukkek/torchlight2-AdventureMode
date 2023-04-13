@@ -12,20 +12,15 @@ NPC=textwrap.dedent('''
 class Goal:
   name:str
   spawnclass:str
-  generic:str=''
+  rarity=1
+  data=''
   
-  def reward(self):
-    raise Exception('unimplemented')
-  
-@dataclasses.dataclass
-class Vendor(Goal):
   def __post_init__(self):
-    self.generic='vendor'
-    
-  def reward(self):
-    return NPC.format(self.spawnclass)
+    data=NPC.format(self.spawnclass)
 
-vendors=[Vendor('enchanter','AM_NPC_ENCHANTERS'),Vendor('set merchant','AM_NPC_SETS'),Vendor('socketer','AM_NPC_SOCKETER')]#TODO UNIT:GAMBLER_SECRETROOM
+vendors=[Goal('vendor','AM_NPC'),Goal('enchanter','AM_NPC_ENCHANTERS'),
+         Goal('set merchant','AM_NPC_SETS'),Goal('socketer','AM_NPC_SOCKETER')]#TODO UNIT:GAMBLER_SECRETROOM
+categories=[vendors,]
 
 def search():
   import load,generate
@@ -40,11 +35,18 @@ def search():
         rewards[key].add(line[1])
   for r in rewards:
     print(f'{r}: {rewards[r]}')
-    
+
+def distribute():
+  percategory=1/len(categories)
+  for c in categories:
+    rarity=percategory/2
+    c[0].rarity=rarity
+    rarity/=len(c)-1
+    for goal in c[1:]:
+      goal.rarity=rarity
+
 def reward():
-  affixes={}
-  for i,v in enumerate(vendors):
-    affixes[f"{v.name}"]=v
-    affixes[f"{v.generic}{i+1}"]=v
-  for a in sorted(affixes.keys()):
-    yield a,affixes[a]
+  distribute()
+  for c in categories:
+    for goal in c:
+      yield goal
