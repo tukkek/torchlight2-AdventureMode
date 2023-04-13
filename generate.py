@@ -74,9 +74,9 @@ class ReplaceName(Replace):
     self.replacement=f'\t<STRING>NAME:{to}\n'
     
 class ReplaceRarity(Replace):
-  def __init__(self,tier):
+  def __init__(self,tier,ratio=1):
     self.pattern='<INTEGER>RARITY:'
-    self.replacement=f'\t<INTEGER>RARITY:{tier.rarity}\n'
+    self.replacement=f'\t<INTEGER>RARITY:{round(tier.rarity*ratio)}\n'
     
 class ReplaceDungeon(Replace):
   def __init__(self,name):
@@ -235,9 +235,10 @@ def makedungeon(category,d,tier,goal=False):
   g=goal.data if goal else ''
   modify(d.dungeon,dungeonname,replace=r,add=a,strata=g)
   mapname=f'am_map_{name}'
+  rarity=goal.rarity if goal else 1
   r=[ReplaceDisplayName(f'{d.name} map ({tier.name})'),
     ReplaceName(mapname),ReplaceDescription(d,tier,goal.name),
-    ReplaceRarity(tier),ReplaceDungeon(dungeonname),
+    ReplaceRarity(tier,rarity),ReplaceDungeon(dungeonname),
     ReplaceGuid(mapname),ReplaceValue(tier),
     ReplaceLevel(tier),ReplaceMinLevel(tier),
     ReplaceMaxLevel(tier),ReplaceUses(),ReplaceIcon(category.icon,tier)]
