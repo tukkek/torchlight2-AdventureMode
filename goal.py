@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python3
+#!/usr/bin/python3
 # further modifies a generate.Dungeon with explicit, strategic rewards
 import dataclasses,textwrap
 
