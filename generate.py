@@ -251,7 +251,7 @@ def makedungeons(category):
     d=FILES[m.lower()]
     d.dungeonname=m #TODO preserves case, probably unnecesssary
     yield d
-    for t in tiers[0:1] if args.debug else tiers:
+    for t in tiers[:1] if args.debug else tiers:
       if category.goals:
         for g in goal.reward():
           makedungeon(category,d,t,g)
@@ -266,7 +266,7 @@ if __name__ == '__main__':
     FILES[c.lower()].name='Challenge'
   total=sum(len(c.maps) for c in categories)
   progress=0
-  for c in categories[1:2] if args.debug else categories:
+  for c in [MAPS] if args.debug else categories:
     for d in makedungeons(c):
       print(f'{round(100*progress/total)}% {d.name}')
       progress+=1
