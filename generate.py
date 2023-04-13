@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-import sys,os,shutil,dataclasses,load,goal
+import sys,os,shutil,dataclasses,load,goal,args
 
 DEBUG=False
 ENCODING='utf-16'
 DIRMEDIA='media'
 DIRDUNGEONS='media/dungeons'
-REFERENCE='/media/sda2/windows/steam/steamapps/common/Torchlight II/'#TODO make argument
+REFERENCE=args.reference
 OPENPORTAL='''	[EFFECT]
 		<STRING>NAME:{}
 		<STRING>ACTIVATION:DYNAMIC
@@ -221,10 +221,10 @@ def modify(path,destination,replace=[],add=[],strata='',extension='.dat'):
   convert(destination)
   return destination
 
-def makedungeon(category,d,tier,affix='',goal=False):
+def makedungeon(category,d,tier,goal=False):
   name=f'{d.dungeonname}_{tier.tier+1}'
-  if len(affix)>0:
-    name+=f"_{affix.replace(' ','_')}"
+  if goal:
+    name+='_'+goal.name.replace(' ','_')
   dungeonname=f'am_{name}'
   r=[ReplaceDisplayName(f'{d.name} (Tier {tier.name})'),
     ReplaceName(dungeonname),ReplaceParentDungeon(),
@@ -232,11 +232,11 @@ def makedungeon(category,d,tier,affix='',goal=False):
     ReplaceMaxMatchLevel(tier),ReplaceIsMap(),
     ClearGoalsMinMax(),ClearGoals(),]
   a=[f'\t<INTEGER>PLAYER_LVL_MATCH_OFFSET:{tier.offset}\n','\t<BOOL>MAP:true\n']
-  g=goal.reward() if goal else ''
+  g=goal.data if goal else ''
   modify(d.dungeon,dungeonname,replace=r,add=a,strata=g)
   mapname=f'am_map_{name}'
   r=[ReplaceDisplayName(f'{d.name} map ({tier.name})'),
-    ReplaceName(mapname),ReplaceDescription(d,tier,affix),
+    ReplaceName(mapname),ReplaceDescription(d,tier,goal.name),
     ReplaceRarity(tier),ReplaceDungeon(dungeonname),
     ReplaceGuid(mapname),ReplaceValue(tier),
     ReplaceLevel(tier),ReplaceMinLevel(tier),
@@ -251,8 +251,8 @@ def makedungeons(category):
     yield d
     for t in tiers:
       if category.goals:
-        for affix,g in goal.reward():
-          makedungeon(category,d,t,affix,g)
+        for g in goal.reward():
+          makedungeon(category,d,t,g)
       else:
         makedungeon(category,d,t)
         
