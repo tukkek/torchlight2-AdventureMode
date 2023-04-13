@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+﻿#!/usr/bin/python3
 # further modifies a generate.Dungeon with explicit, strategic rewards
 import dataclasses,textwrap
 
@@ -16,7 +16,7 @@ class Goal:
   data=''
   
   def __post_init__(self):
-    data=NPC.format(self.spawnclass)
+    self.data=NPC.format(self.spawnclass)
 
 vendors=[Goal('vendor','AM_NPC'),Goal('enchanter','AM_NPC_ENCHANTERS'),
          Goal('set merchant','AM_NPC_SETS'),Goal('socketer','AM_NPC_SOCKETER')]#TODO UNIT:GAMBLER_SECRETROOM
