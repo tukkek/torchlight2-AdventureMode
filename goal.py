@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 # further modifies a generate.Dungeon with explicit, strategic rewards
-import dataclasses,textwrap
+import dataclasses,textwrap,args
 
 NPC=textwrap.dedent('''
-  <FLOAT>NPCS_MIN:0
-  <FLOAT>NPCS_MAX:1
+  <FLOAT>NPCS_MIN:{}
+  <FLOAT>NPCS_MAX:{}
   <STRING>NPCSPAWNCLASS:{}
   ''').strip()
 
@@ -12,15 +12,23 @@ NPC=textwrap.dedent('''
 class Goal:
   name:str
   spawnclass:str
-  rarity=1
-  data=''
+  minimum:int=0
+  maximum:int=6
+  rarity:int=1
+  data:str=''
   
   def __post_init__(self):
-    self.data=NPC.format(self.spawnclass)
+    self.data=NPC.format(self.minimum,self.maximum,self.spawnclass)
+    
+@dataclasses.dataclass
+class Vendor(Goal):
+  maximum:int=1
 
-vendors=[Goal('vendor','AM_NPC'),Goal('enchanter','AM_NPC_ENCHANTERS'),
-         Goal('set merchant','AM_NPC_SETS'),Goal('socketer','AM_NPC_SOCKETER')]#TODO UNIT:GAMBLER_SECRETROOM
-categories=[vendors,]
+vendors=[Vendor('vendor','AM_NPC'),Vendor('enchanter','AM_NPC_ENCHANTERS'),
+         Vendor('set merchant','AM_NPC_SETS'),Vendor('socketer','AM_NPC_SOCKETER')]#TODO UNIT:GAMBLER_SECRETROOM
+potions=[Goal('potions','AM_POTION',0,12)]
+shrines=[Goal('shrines','AM_SHRINE')]
+categories=[vendors,potions,shrines,]
 
 def search():
   import load,generate
@@ -39,14 +47,17 @@ def search():
 def distribute():
   percategory=1/len(categories)
   for c in categories:
+    n=len(c)
+    if n==1:
+      continue
     rarity=percategory/2
     c[0].rarity=rarity
-    rarity/=len(c)-1
+    rarity/=n-1
     for goal in c[1:]:
       goal.rarity=rarity
 
 def reward():
   distribute()
-  for c in categories:
+  for c in [potions,shrines] if args.debug else categories:
     for goal in c:
       yield goal

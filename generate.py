@@ -266,7 +266,7 @@ if __name__ == '__main__':
     FILES[c.lower()].name='Challenge'
   total=sum(len(c.maps) for c in categories)
   progress=0
-  for c in [MAPS] if args.debug else categories:
+  for c in [categories[0]] if args.debug else categories:
     for d in makedungeons(c):
       print(f'{round(100*progress/total)}% {d.name}')
       progress+=1
