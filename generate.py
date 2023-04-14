@@ -75,7 +75,7 @@ class ReplaceName(Replace):
 class ReplaceRarity(Replace):
   def __init__(self,tier,ratio=1):
     self.pattern='<INTEGER>RARITY:'
-    self.replacement=f'\t<INTEGER>RARITY:{round(tier.rarity*ratio)}\n'
+    self.replacement=f'\t<INTEGER>RARITY:{round(tier.rarity*goal.maxgoals*2*ratio)}\n'
     
 class ReplaceDungeon(Replace):
   def __init__(self,name):
