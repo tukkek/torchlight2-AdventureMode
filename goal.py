@@ -28,11 +28,11 @@ vendors=[Vendor('vendor','AM_NPC'),Vendor('enchanter','AM_NPC_ENCHANTERS'),
          Vendor('set merchant','AM_NPC_SETS'),Vendor('socketer','AM_NPC_SOCKETER')]#TODO UNIT:GAMBLER_SECRETROOM
 potions=[Goal('potions','AM_POTION',0,12)]
 shrines=[Goal('shrines','AM_SHRINE')]
-weapons=[Goal('weapons','am_weapon'),Goal('axes','am_weapon_axe'),Goal('bows','am_weapon_bow'),
-         Goal('cannons','am_weapon_cannon'),Goal('crossbows','am_weapon_crossbow'),Goal('daggers','am_weapon_dagger'),
-         Goal('fists','am_weapon_fist'),Goal('maces','am_weapon_mace'),Goal('pistols','am_weapon_pistol'),
-         Goal('polearms','am_weapon_polearm'),Goal('rifles','am_weapon_rifle'),Goal('staves','am_weapon_staff'),
-         Goal('swords','am_weapon_sword'),Goal('wands','am_weapon_wand')]
+weapons=[Goal('weapons','am_weapon'),Goal('axes','am_weapon_axe'),Goal('bows and crossbows','am_weapon_bow'),
+         Goal('cannons','am_weapon_cannon'),Goal('claws','am_weapon_fist'),
+         Goal('maces and hammers','am_weapon_mace'),Goal('pistols','am_weapon_pistol'),
+         Goal('polearms','am_weapon_polearm'),Goal('shotgonnes','am_weapon_rifle'),
+         Goal('staves','am_weapon_staff'),Goal('swords','am_weapon_sword'),Goal('wands','am_weapon_wand')]
 armor=[Goal('armor','am_armor'),Goal('boots','am_armor_boots'),Goal('chest armor','am_armor_chest'),
        Goal('gloves','am_armor_gloves'),Goal('helmets','am_armor_helmet'),Goal('pants','am_armor_pants'),
        Goal('shields','am_armor_shield'),Goal('shoulder armor','am_armor_shoulder')]
