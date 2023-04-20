@@ -74,7 +74,7 @@ class ReplaceName(Replace):
 class ReplaceRarity(Replace):
   def __init__(self,tier,ratio=1):
     self.pattern='<INTEGER>RARITY:'
-    self.replacement=f'\t<INTEGER>RARITY:{round(tier.rarity*goal.maxgoals*2*ratio)}\n'
+    self.replacement=f'\t<INTEGER>RARITY:{round(tier.rarity*ratio)}\n'
     
 class ReplaceDungeon(Replace):
   def __init__(self,name):
@@ -166,7 +166,7 @@ class Tier:
       self.maxlevel=100
     self.mindroplevel=1
     self.maxdroplevel=self.maxlevel+5
-    self.rarity=round(2**(TIERS-t-1))
+    self.rarity=round(2**(TIERS-t-1)/goal.factor)
     self.value=t+1
     
 @dataclasses.dataclass
@@ -222,7 +222,7 @@ def modify(path,destination,replace=[],add=[],strata='',extension='.dat'):
 def makedungeon(category,d,tier,goal=False):
   name=f'{d.dungeonname}_{tier.tier+1}'
   if goal:
-    name+='_'+goal.name.replace(' ','_')
+    name+='_'+goal.spawnclass.replace('am_','')
   dungeonname=f'am_{name}'
   r=[ReplaceDisplayName(f'{d.name} (Tier {tier.name})'),
     ReplaceName(dungeonname),ReplaceParentDungeon(),

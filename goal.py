@@ -24,10 +24,10 @@ class Goal:
 class Vendor(Goal):
   maximum:int=1
 
-vendors=[Vendor('enchanters','AM_NPC_ENCHANTERS'),
-         Vendor('set merchants','AM_NPC_SETS'),Vendor('socketers','AM_NPC_SOCKETER')]#TODO UNIT:GAMBLER_SECRETROOM
-potions=[Goal('potions','AM_POTION',0,12)]
-shrines=[Goal('shrines','AM_SHRINE')]
+vendors=[Vendor('enchanters','am_npc_enchanters'),
+         Vendor('set merchants','am_npc_sets'),Vendor('socketers','am_npc_socketer')]#TODO UNIT:GAMBLER_SECRETROOM
+potions=[Goal('potions','am_potion',0,12)]
+shrines=[Goal('shrines','am_shrine')]
 weapons=[Goal('bows and crossbows','am_weapon_bow'),
          Goal('cannons, pistols and shotgonnes','am_weapon_firearm'),
          Goal('staves and wands','am_weapon_focus'),
@@ -40,7 +40,7 @@ trinkets=[Goal('belts','am_trinket_belt'),Goal('necklaces','am_trinket_necklace'
           Goal('rings','am_trinket_ring')]
 categories=[weapons,armor,trinkets,
             vendors,potions,shrines,]
-maxgoals=max(len(c) for c in categories)
+factor=0
 
 def search():
   import load,generate
@@ -57,13 +57,17 @@ def search():
     print(f'{r}: {rewards[r]}')
 
 def distribute():
+  rarity=1/len(categories)
   for c in categories:
-    rarity=1/len(c)
+    crarity=rarity/len(c)
     for goal in c:
-      goal.rarity=rarity
+      goal.rarity=crarity
+  global factor
+  factor=min(goal.rarity for c in categories for goal in c)
 
 def reward():
-  distribute()
   for c in categories if args.debug else categories:
     for goal in c:
       yield goal
+
+distribute()
