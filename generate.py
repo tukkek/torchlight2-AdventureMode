@@ -16,8 +16,7 @@ OPENPORTAL='''	[EFFECT]
 	[/EFFECT]
 '''
 PARENT='ESTHERIANCITY'
-GUIDWARNING='''For extra safety make sure to check GUIDs on GUTS before publishing your mod.
-If there are any collisions, regenerating the files again should solve the problem.'''
+GUIDWARNING='For extra safety make sure to check GUIDs on GUTS before publishing.'
 FILES={}
 NUMERALS=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI']
 TIERS=len(NUMERALS)

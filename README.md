@@ -8,15 +8,29 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 
 * A completely overhauled, 100% viable alternate game mode
 * Over 100 individual area instances from the base game to explore:
-  * ~80 maps / dungeons
-  * ~30 bosses
-  * ~10 challenges
-  * ~10 nether portals
-  * ~10 outdoor areas
 * 16 tiers of maps, allowing you to play at your own pace and decide your own path through the game
-* Content ranging from the very early game up to max level (Tier 16 scales between level 80 and 100)
-* Should be compatible with every other mod that doesn't also change the way map scrolls work
-* Fully open-source!
+* 6 strategic reward types per applicable map, with dozens of subtypes for focus-farming upgrades
+* Content ranging from the very early game up to max level (tier 16 scales between level 80 and 100)
+* Should be compatible with every other mod that doesn't also overhaul the campaign
+* Open-source
+
+## Statistics
+
+16 tiers generated for:
+- 71 maps
+- 28 bosses
+- 13 wilderness
+- 10 challenges
+- 7 dungeons
+- 7 netherrealm
+
+6 reward types:
+- 11 weapons (weapons, axes and greataxes, bows and crossbows, cannons, claws, maces and hammers, pistols, polearms, shotgonnes, staves, swords and greatswords, wands)
+- 7 armor (armor, boots, chest armor, gloves, helmets, pants, shields, shoulder armor)
+- 3 trinkets (trinkets, belts, necklaces, rings)
+- 3 vendors (vendors, enchanters, set merchants, socketers)
+- potions
+- shrines
 
 # Contact and support
 
