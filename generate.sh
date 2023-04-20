@@ -6,10 +6,10 @@ rm -rf media/
 cp -r static/media media/
 find media/ui/icons/|grep -e .xcf -e .md|xargs rm
 echo "Converting warps..."
-nice python3 convertwarps.py
+nice python3 convertwarps.py --reference install/
 echo "Generating maps..."
 PYTHONHASHSEED=0 nice python3 generate.py --reference install/
 echo "Altering zoom..."
-nice python3 zoom.py
+nice python3 zoom.py --reference install/
 echo "Scaling vanilla areas..."
-nice python3 scale.py
+nice python3 scale.py --reference install/
