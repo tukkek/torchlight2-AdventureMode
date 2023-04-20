@@ -7,6 +7,7 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 # Main features
 
 * A completely overhauled, 100% viable alternate game mode
+* Over 40,000 individual map scrolls
 * Over 100 individual area instances from the base game to explore:
 * 16 tiers of maps, allowing you to play at your own pace and decide your own path through the game
 * 6 strategic reward types per applicable map, with dozens of subtypes for focus-farming upgrades
@@ -31,6 +32,8 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 - 3 vendors (vendors, enchanters, set merchants, socketers)
 - potions
 - shrines
+
+For a total of 44,400 generated maps.
 
 # Contact and support
 
