@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 set -e
 
+echo For development and testing only!
+
 echo Clearing GUTS data
 nice rm -f 'guts/Adventure mode/media/dungeons/'*
 nice rm -f 'guts/Adventure mode/media/units/items/maps/'*
