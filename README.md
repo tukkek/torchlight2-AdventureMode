@@ -26,16 +26,16 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 - 7 dungeons
 - 7 netherrealm
 
-6 map reward categories, 20 reward types:
+6 map reward categories, 15 reward types:
 
-- 7 for armor (boots; chest armor; gloves; helmets; pants; shields; shoulder armor)
 - 5 for weapons (bows and crossbows; cannons, pistols and shotgonnes; staves and wands; axes, claws, maces and swords; greataxes, greathammers, greatswords and polearms)
-- 3 for trinkets (belts; necklaces; rings)
 - 3 for vendors (enchanters; set merchants; socketers)
+- 3 for trinkets (belts; necklaces; rings)
+- 2 for armor (boots, gloves, helms and shoulder armor; chest armor, pants and shields)
 - potions
 - shrines
 
-For a total of 29,840 generated maps.
+For a total of 22,560 generated maps.
 
 # Contact and support
 

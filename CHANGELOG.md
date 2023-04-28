@@ -3,12 +3,13 @@
 # 1.1
 
 * **6 map reward types as strategic goals**
-  * **Almost 30,000 map scrolls** (up from 2,000 in the original release)
+  * **Over 20,000 map scrolls** (up from 2,000 in the original release)
   * 6 reward types (armor, trinkets, weapons, vendors, potions and shrines)
-  * 20 reward sub-types (see the `README.md` file for details)
+    * 15 reward sub-types (see the `README.md` file for details)
 * **Maps now drop from boss and gold chests and champions**
   * Vendor maps reduced to act as initial seeds or fall-back as needed
   * Base champion loot table based on Torchlite II's No Loot Drops mod
+* There's a 50% chance to drop a second spell from major chests
 * Increased camera height and draw distance
   * Global rendering and AI values set to 136
   * Camera zoom on template files set to 140%
