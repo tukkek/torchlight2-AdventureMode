@@ -24,22 +24,21 @@ class Goal:
 class Vendor(Goal):
   maximum:int=1
 
-vendors=[Vendor('enchanters','am_npc_enchanters'),
-         Vendor('set merchants','am_npc_sets'),Vendor('socketers','am_npc_socketer')]#TODO UNIT:GAMBLER_SECRETROOM
-potions=[Goal('potions','am_potion',0,12)]
-shrines=[Goal('shrines','am_shrine')]
+armor=[Goal('boots, gloves, helms and shoulder armor','am_armor_small'),
+       Goal('chest armor, pants and shields','am_armor_large'),]
+trinkets=[Goal('belts','am_trinket_belt'),Goal('necklaces','am_trinket_necklace'),
+          Goal('rings','am_trinket_ring')]
 weapons=[Goal('bows and crossbows','am_weapon_bow'),
          Goal('cannons, pistols and shotgonnes','am_weapon_firearm'),
          Goal('staves and wands','am_weapon_focus'),
          Goal('axes, claws, maces and swords','am_weapon_melee_small'),
          Goal('greataxes, greathammers, greatswords and polearms','am_weapon_melee_large'),]
-armor=[Goal('boots','am_armor_boots'),Goal('chest armor','am_armor_chest'),
-       Goal('gloves','am_armor_gloves'),Goal('helmets','am_armor_helmet'),Goal('pants','am_armor_pants'),
-       Goal('shields','am_armor_shield'),Goal('shoulder armor','am_armor_shoulder')]
-trinkets=[Goal('belts','am_trinket_belt'),Goal('necklaces','am_trinket_necklace'),
-          Goal('rings','am_trinket_ring')]
-categories=[weapons,armor,trinkets,
-            vendors,potions,shrines,]
+potions=[Goal('potions','am_potion',0,12)]
+shrines=[Goal('shrines','am_shrine')]
+vendors=[Vendor('enchanters','am_npc_enchanters'),
+         Vendor('set merchants','am_npc_sets'),Vendor('socketers','am_npc_socketer')]#TODO UNIT:GAMBLER_SECRETROOM
+categories=[armor,trinkets,weapons,
+            potions,shrines,vendors,]
 factor=0
 
 def search():
@@ -66,7 +65,7 @@ def distribute():
   factor=min(goal.rarity for c in categories for goal in c)
 
 def reward():
-  for c in categories if args.debug else categories:
+  for c in [armor] if args.debug else categories:
     for goal in c:
       yield goal
 
