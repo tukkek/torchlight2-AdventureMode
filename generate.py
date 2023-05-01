@@ -222,7 +222,7 @@ def modify(path,destination,replace=[],add=[],strata='',extension='.dat'):
 def makedungeon(category,d,tier,goal=False):
   name=f'{d.dungeonname}_{tier.tier+1}'
   if goal:
-    name+='_'+goal.spawnclass.replace('am_','')
+    name+='_'+goal.spawnclass.replace('am_spawn_prop_','').replace('am_','')
   dungeonname=f'am_{name}'
   r=[ReplaceDisplayName(f'{d.name} (Tier {tier.name})'),
     ReplaceName(dungeonname),ReplaceParentDungeon(),

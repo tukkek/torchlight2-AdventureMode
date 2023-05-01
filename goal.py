@@ -13,30 +13,33 @@ class Goal:
   name:str
   spawnclass:str
   minimum:int=0
-  maximum:int=6
+  maximum:int=2
   rarity:int=1
   data:str=''
   
   def __post_init__(self):
-    self.data=NPC.format(self.minimum,self.maximum,self.spawnclass)
-    
+    m=self.maximum if args.debug else self.minimum
+    self.data=NPC.format(m,self.maximum,self.spawnclass)
+
 @dataclasses.dataclass
 class Vendor(Goal):
   maximum:int=1
 
-armor=[Goal('boots, gloves, helms and shoulder armor','am_armor_small'),
-       Goal('chest armor, pants and shields','am_armor_large'),]
-trinkets=[Goal('belts','am_trinket_belt'),Goal('necklaces','am_trinket_necklace'),
-          Goal('rings','am_trinket_ring')]
-weapons=[Goal('bows and crossbows','am_weapon_bow'),
-         Goal('cannons, pistols and shotgonnes','am_weapon_firearm'),
-         Goal('staves and wands','am_weapon_focus'),
-         Goal('axes, claws, maces and swords','am_weapon_melee_small'),
-         Goal('greataxes, greathammers, greatswords and polearms','am_weapon_melee_large'),]
+armor=[Goal('boots, chest armor and pants','am_spawn_prop_armor_large'),
+       Goal('gloves, helms, shields and shoulder armor','am_spawn_prop_armor_small'),]
+trinkets=[Goal('belts','am_spawn_prop_trinket_belt'),
+          Goal('necklaces','am_spawn_prop_trinket_necklace'),
+          Goal('rings','am_spawn_prop_trinket_ring')]
+weapons=[Goal('bows and crossbows','am_spawn_prop_weapon_bow'),
+         Goal('cannons, pistols and shotgonnes','am_spawn_prop_weapon_firearm'),
+         Goal('staves and wands','am_spawn_prop_weapon_focus'),
+         Goal('axes, claws, maces and swords','am_spawn_prop_weapon_melee_small'),
+         Goal('greataxes, greathammers, greatswords and polearms','am_spawn_prop_weapon_melee_large'),]
 potions=[Goal('potions','am_potion',0,12)]
-shrines=[Goal('shrines','am_shrine')]
+shrines=[Goal('shrines','am_shrine',0,6)]
 vendors=[Vendor('enchanters','am_npc_enchanters'),
-         Vendor('set merchants','am_npc_sets'),Vendor('socketers','am_npc_socketer')]#TODO UNIT:GAMBLER_SECRETROOM
+         Vendor('set merchants','am_npc_sets'),
+         Vendor('socketers','am_npc_socketer')]#TODO UNIT:GAMBLER_SECRETROOM
 categories=[armor,trinkets,weapons,
             potions,shrines,vendors,]
 factor=0
