@@ -31,7 +31,7 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 - 5 for weapons (bows and crossbows; cannons, pistols and shotgonnes; staves and wands; axes, claws, maces and swords; greataxes, greathammers, greatswords and polearms)
 - 3 for vendors (enchanters; set merchants; socketers)
 - 3 for trinkets (belts; necklaces; rings)
-- 2 for armor (boots, gloves, helms and shoulder armor; chest armor, pants and shields)
+- 2 for armor (boots, chest armor and pants; gloves, helms, shields and shoulder armor)
 - potions
 - shrines
 
