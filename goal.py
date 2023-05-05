@@ -42,6 +42,7 @@ vendors=[Vendor('enchanters','am_npc_enchanters'),
          Vendor('socketers','am_npc_socketer')]#TODO UNIT:GAMBLER_SECRETROOM
 categories=[armor,trinkets,weapons,
             potions,shrines,vendors,]
+names=['armor','trinkets','weapons','potions','shrines','vendors']#TODO record
 factor=0
 
 def search():
@@ -68,7 +69,7 @@ def distribute():
   factor=min(goal.rarity for c in categories for goal in c)
 
 def reward():
-  for c in [armor] if args.debug else categories:
+  for c in [weapons] if args.debug else categories:
     for goal in c:
       yield goal
 

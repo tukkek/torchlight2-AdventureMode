@@ -5,7 +5,7 @@ TIERS=textwrap.dedent('''
   {}
 ''')
 REWARDS=textwrap.dedent('''
-  {} reward types:
+  {} map reward categories, {} reward types:
   {}
 ''')
 SUMMARY=textwrap.dedent('''
@@ -22,15 +22,16 @@ def show(count):
   tiers=TIERS.format(len(generate.tiers),tiers)
   goals=goal.categories
   rewards=[]
-  for g in goals:
+  for g in sorted(goals,key=lambda k:len(k),reverse=True):
+    name=goal.names[goals.index(g)]
     ntypes=len(g)
-    types=''
-    if ntypes==1:
-      ntypes=''
-    else:
-      types=', '.join(goaltype.name for goaltype in g)
-      types=f'({types})'
-      ntypes-=1
-    rewards.append(f'- {ntypes} {g[0].name} {types}'.strip().replace('  ',' '))
-  rewards=REWARDS.format(len(goals),'\n'.join(rewards))
-  print(SUMMARY.format(tiers.strip(),rewards.strip(),f'{count:,}').strip())
+    entry=f'{name}'
+    if ntypes>1:
+      types='; '.join(goaltype.name for goaltype in g)
+      entry=f'{ntypes} for {name} ({types})'
+    rewards.append(f'- {entry}')
+  ngoals=sum(len(g) for g in goals)
+  rewards=REWARDS.format(len(goals),ngoals,'\n'.join(rewards))
+  s=SUMMARY.format(tiers.strip(),rewards.strip(),f'{count:,}').strip()
+  print(s)
+  print(s,file=open('summary.txt','w'))
