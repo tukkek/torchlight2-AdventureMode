@@ -18,24 +18,22 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 ## Statistics
 
 16 tiers generated for:
-
 - 71 maps
-- 28 bosses
+- 27 bosses
 - 13 wilderness
 - 10 challenges
-- 7 dungeons
 - 7 netherrealm
+- 4 dungeons
 
 6 map reward categories, 15 reward types:
-
 - 5 for weapons (bows and crossbows; cannons, pistols and shotgonnes; staves and wands; axes, claws, maces and swords; greataxes, greathammers, greatswords and polearms)
-- 3 for vendors (enchanters; set merchants; socketers)
 - 3 for trinkets (belts; necklaces; rings)
+- 3 for vendors (enchanters; set merchants; socketers)
 - 2 for armor (boots, chest armor and pants; gloves, helms, shields and shoulder armor)
 - potions
 - shrines
 
-For a total of 22,560 generated maps.
+For a total of 21,824 generated maps.
 
 # Contact and support
 
