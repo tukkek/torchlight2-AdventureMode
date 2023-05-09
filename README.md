@@ -69,3 +69,5 @@ Dependencies (for development only, not required to play the mod):
 
 * [Python 3](https://www.python.org/downloads/)
 * [unix2dos](http://dos2unix.sourceforge.net/)
+
+Extra utility scripts are written in BASH (may work under [Cygwin](https://www.cygwin.com/) on Windows).
