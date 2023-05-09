@@ -7,10 +7,10 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 # Main features
 
 * A completely overhauled, 100% viable alternate game mode
-* ~30,000 individual map scrolls
+* ~20,000 individual map scrolls
 * ~100 procedurally-generated areas from the base game to explore:
 * 16 tiers of maps, allowing you to play at your own pace and decide your own path through the game
-* 6 strategic reward types per applicable map, with dozens of subtypes for focus-farming upgrades
+* 6 strategic reward types per applicable map, with a dozen subtypes for focus-farming upgrades
 * Content ranging from the very early game up to max level (tier 16 scales between level 80 and 100)
 * Should be compatible with every other mod that doesn't also overhaul the campaign
 * Open-source
