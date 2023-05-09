@@ -55,7 +55,7 @@ As with most roguelike games, you can be dealt a rougher hand early on due to th
 
 The first and last tier of map scrolls have some limited scaling, with Tier 1 scaling with player level up to level 5 and Tier 16 likewise from level 80 to 100. This is done both to ease lower-level characters into the progression system (especially important on higher difficulties) and to provide an "endgame" for players who want to push to level 100.
 
-Since you can't find any spell vendors in this mode, a guaranteed spell drop is given with every boss and gold chest. This shouldn't impact balance too much as most spells are tuned around their mana cost and there is a hard limit to the number of spells you can have at once (even if you only go for passives). It also gives a nice incentive (and reward) to investing more time into longer dungeon and higher-risk boss maps.
+Since you can't find any spell vendors in this mode, a guaranteed spell drop is given with every boss and gold chest. This shouldn't impact balance too much as most spells are tuned around their mana cost and there is a hard limit to the number of spells you can have at once (even if you only go for passives). It also gives a nice incentive (and reward) to investing more time into longer dungeon and higher-risk boss maps. As a fall-back, champion monsters also have a small chance of dropping spells.
 
 # Planned features
 
