@@ -18,8 +18,7 @@ class Goal:
   data:str=''
   
   def __post_init__(self):
-    m=self.maximum if args.debug else self.minimum
-    self.data=NPC.format(m,self.maximum,self.spawnclass)
+    self.data=NPC.format(self.minimum,self.maximum,self.spawnclass)
 
 @dataclasses.dataclass
 class Vendor(Goal):
