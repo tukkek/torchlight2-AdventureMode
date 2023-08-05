@@ -7,10 +7,10 @@ Maps can be purchased from vendors as soon as you reach the Estherian Enclave (f
 # Main features
 
 * A completely overhauled, 100% viable alternate game mode
-* ~30,000 individual map scrolls
+* ~20,000 individual map scrolls
 * ~100 procedurally-generated areas from the base game to explore:
 * 16 tiers of maps, allowing you to play at your own pace and decide your own path through the game
-* 6 strategic reward types per applicable map, with dozens of subtypes for focus-farming upgrades
+* 6 strategic reward types per applicable map, with a dozen subtypes for focus-farming upgrades
 * Content ranging from the very early game up to max level (tier 16 scales between level 80 and 100)
 * Should be compatible with every other mod that doesn't also overhaul the campaign
 * Open-source
@@ -55,7 +55,7 @@ As with most roguelike games, you can be dealt a rougher hand early on due to th
 
 The first and last tier of map scrolls have some limited scaling, with Tier 1 scaling with player level up to level 5 and Tier 16 likewise from level 80 to 100. This is done both to ease lower-level characters into the progression system (especially important on higher difficulties) and to provide an "endgame" for players who want to push to level 100.
 
-Since you can't find any spell vendors in this mode, a guaranteed spell drop is given with every boss and gold chest. This shouldn't impact balance too much as most spells are tuned around their mana cost and there is a hard limit to the number of spells you can have at once (even if you only go for passives). It also gives a nice incentive (and reward) to investing more time into longer dungeon and higher-risk boss maps.
+Since you can't find any spell vendors in this mode, a guaranteed spell drop is given with every boss and gold chest. This shouldn't impact balance too much as most spells are tuned around their mana cost and there is a hard limit to the number of spells you can have at once (even if you only go for passives). It also gives a nice incentive (and reward) to investing more time into longer dungeon and higher-risk boss maps. As a fall-back, champion monsters also have a small chance of dropping spells.
 
 # Planned features
 
@@ -69,3 +69,5 @@ Dependencies (for development only, not required to play the mod):
 
 * [Python 3](https://www.python.org/downloads/)
 * [unix2dos](http://dos2unix.sourceforge.net/)
+
+Extra utility scripts are written in [BASH](https://www.gnu.org/software/bash/) (may work under [Cygwin](https://www.cygwin.com/) on Windows).
