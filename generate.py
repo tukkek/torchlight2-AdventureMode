@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import sys,os,shutil,dataclasses,load,goal,args,summary
+import sys,os,shutil,dataclasses,load,goal,args,summary,random
 
 ENCODING='utf-16'
 DIRMEDIA='media'
@@ -198,6 +198,29 @@ def read(path):
     for l in lines:
       yield l
 
+'''
+Affixes aren't the same in the actual dungeon as on the scroll.
+This is probably because of using an item effect rather than mapworks prop?
+Fix it by deciding affixes here at generation time.
+There are tens of thousands of scrolls so it's virtually random either way.
+Vast majority of scrolls are 0-4 affixes, so using that here too.
+'''
+def derandomize(lines):
+  naffixes=random.randint(0,4)
+  affixes=[]
+  for i,l in enumerate(lines):
+    if 'MINRANDOMAFFIXES' in l:
+      lines[i]=f'\t<INTEGER>MINRANDOMAFFIXES:{naffixes}\n'
+    elif 'MAXRANDOMAFFIXES' in l:
+      lines[i]=f'\t<INTEGER>MAXRANDOMAFFIXES:{naffixes}\n'
+    elif '<STRING>AFFIX:' in l:
+      affixes.append(i)
+  if len(affixes)==0:
+    return
+  random.shuffle(affixes)
+  for i in sorted(affixes[naffixes:],reverse=True):
+    lines.pop(i)
+
 def modify(path,destination,replace=[],add=[],strata='',extension='.dat'):
   generated=[]
   for line in read(path):
@@ -212,6 +235,8 @@ def modify(path,destination,replace=[],add=[],strata='',extension='.dat'):
         generated.extend(f'\t\t{line}\n' for line in strata.split('\n'))
   for a in add:
     generated.insert(len(generated)-1,a)
+  if len(strata)>0:
+    derandomize(generated)
   destination=f'{os.path.dirname(path)}/{destination}{extension}'.lower()
   os.makedirs(os.path.dirname(destination),exist_ok=True)
   with open(destination,'w',encoding=ENCODING) as f:
@@ -260,6 +285,7 @@ def makedungeons(category):
         
 
 if __name__ == '__main__':
+  random.seed(0)
   for dungeon in load.scan():
     FILES[dungeon.dungeonname.lower()]=dungeon
   for c in CHALLENGES:
