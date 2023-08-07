@@ -90,6 +90,7 @@ class Toxic(Theme):
     self.monster.buffs=['MAP_NOXIOUS','MAP_POISON_DAMAGE_PERCENT_BONUS_15']
 
 themes=[t() for t in [Blazing,Galvanic,Glacial,Brutal,Vigorous,Lucky,Arcane,Warped,Toxic]]
+prefix=False
 
 def clean(line):
   if 'MINRANDOMAFFIXES' in line or 'MAXRANDOMAFFIXES' in line:
@@ -132,7 +133,9 @@ def generate(filename,lines):
   for i in range(len(lines)):
     l=lines[i]
     if 'DISPLAYNAME:' in l:
-      lines[i]=l.replace('DISPLAYNAME:',f'DISPLAYNAME:{t.name} ')
+      global prefix
+      prefix=t.name
+      lines[i]=l.replace('DISPLAYNAME:',f'DISPLAYNAME:{prefix} ')
       break
   c=t.count()
   splice(MIN.format(c),lines)
@@ -142,3 +145,10 @@ def generate(filename,lines):
   add(m.buffs,MONSTERBUFFS,lines)
   add(m.debuffs,MONSTERDEBUFFS,lines)
   
+def rename(original):
+  global prefix
+  if not prefix:
+    return original
+  name=f'{prefix} {original}'
+  prefix=False
+  return name

@@ -237,7 +237,7 @@ def makedungeon(category,d,tier,goal=False):
   modify(d.dungeon,dungeonname,replace=r,add=a,strata=g)
   mapname=f'am_map_{name}'
   rarity=goal.rarity if goal else 1
-  r=[ReplaceDisplayName(f'{d.name} map ({tier.name})'),
+  r=[ReplaceDisplayName(f'{theme.rename(d.name)} map ({tier.name})'),
     ReplaceName(mapname),ReplaceDescription(d,tier,goal),
     ReplaceRarity(tier,rarity),ReplaceDungeon(dungeonname),
     ReplaceGuid(mapname),ReplaceValue(tier),
