@@ -73,6 +73,24 @@ As with most roguelites, the first few maps can be fairly challenging, especiall
 
 ## Progression
 
+Upon entering a map, a skilled player (relative to their chosen difficulty), should be able to either:
+
+1. Sustain their map scrolls by acquiring a new map of the same tier.
+2. Progress horizontally by gaining enough experience to level-up.
+3. (Optionally and additionally, regain any gold spent on consumables while exploring the map).
+
+Achieving either or both objectives assures that some progress has bene made - and as importatnly, that backwards progress was avoided (such as running out of maps of a given tier or being unable to afford potions for the next map). This is however, not a hard rule: drawbacks and difficulties are often what make a rogue-like run memorable!
+
+With this in mind, version 1.3 has made every source that drops a map result in 0 to 2 maps, with some sources guaranteeing an extra one (so, for those, in practice, 1-3). On average, that means a player who can kill at least one champion per map should be able to sustain their maps, fulfilling condition #1 above.
+
+This is relatively generous on lower difficulties (which will also enable more casual players to more freely choose the content they interact with) but necessary on higher difficulties, while also providing a steady surplus of maps that can be stashed (either for a given run or for future ones). That surplus is tuned to not be too excessive.
+
+Map drops are always relative to player level, with each higher tier being about twice as rare as the previous one - with a lower limit imposed to higher-level drops.
+
+There are only two scenearios where a level modifier is applied: at the end of a boss fight, where you are considered to already have "progressed" to the next tier; and to a set of "fall-back maps" in the shop, that act as a safety-net for players who run out of map scrolls or who have made a poor build choice and need to go back a tier or two.
+
+In 1.0, maps could only be acquired on shops. More recently, players should be able to fully progress through drops only, with the shop serving only an auxiliary function.
+
 # Planned features
 
 Full list of pending tasks and known-issues available [here](https://github.com/tukkek/torchlight2-AdventureMode/issues).
