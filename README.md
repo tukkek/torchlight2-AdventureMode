@@ -87,8 +87,6 @@ This is relatively generous on lower difficulties (which will also enable more c
 
 Map drops are always relative to player level, with each higher tier being about twice as rare as the previous one - with a lower limit imposed to higher-level drops.
 
-There are only two scenearios where a level modifier is applied: at the end of a boss fight, where you are considered to already have "progressed" to the next tier; and to a set of "fall-back maps" in the shop, that act as a safety-net for players who run out of map scrolls or who have made a poor build choice and need to go back a tier or two.
-
 In 1.0, maps could only be acquired in shops. More recently, players should be able to fully progress through drops only, with the shop serving only an auxiliary function.
 
 # Planned features
