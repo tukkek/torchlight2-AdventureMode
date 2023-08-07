@@ -29,6 +29,6 @@
 
 # 1.3
 
-* Tuned map drops, in particular to better support veteran-difficulty runs
-  * Added balance section to read-me fil
+* Map drops tuning, in particular to better support veteran-difficulty runs
+  * Added balance section to read-me file
  
