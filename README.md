@@ -62,7 +62,7 @@ Since you can't find any spell vendors in this mode, a guaranteed spell drop is 
 ## Difficulties
 
 * **_Casual_ and _Normal_**: are straighforward, with _Normal_ being the default play-testing option during the mod's development.
-*  **_Veteran_**: version 1.3 better supports this difficulty but even then players are advised to take some extra steps like stocking up on lower-tier maps (to fall-back to if needed) and acquiring a full set of basic gear before doing their first runs.
+*  **_Veteran_**: version 2.0 better supports this difficulty but even then players are advised to take some extra steps like stocking up on lower-tier maps (to fall-back to if needed) and acquiring a full set of basic gear before doing their first runs.
 *  **_Elite_**: while no intentional tuning has been done for this mode, some further min-maxing and, in particular use of the shared stash would probably make this viable. Players who enjoy pre-planned builds and use of build-guides might find this option better suited for their level of optimization as well.
 
 These requirements seem to be aligned with the spirit of _Veteran_ and _Elite_, as well as their tuning in other games of the genre. Players used to trivializing harder difficulties in the vanilla (or modded) game through extensive min-maxing may find the change significant though - however, [more mods can be used to restore that experience](https://steamcommunity.com/workshop/filedetails/discussion/2553033153/3827541651925946169/).
@@ -81,7 +81,7 @@ Upon entering a map, a skilled player (relative to their chosen difficulty), sho
 
 Achieving either or both objectives assures that some progress has been made - and as importantly, that backwards progress was avoided (such as running out of maps of a given tier or being unable to afford potions for the next map). This is however, not a hard rule: drawbacks and difficulties are often what make a rogue-like run memorable!
 
-With this in mind, version 1.3 has made every source that drops a map result in 0 to 2 maps, with some sources guaranteeing an extra one (so, for those, in practice, 1-3). On average, that means a player who can kill at least one champion per map should be able to sustain their maps, fulfilling condition #1 above.
+With this in mind, version 2.0 has made every source that drops a map result in 0 to 2 maps, with some sources guaranteeing an extra one (so, for those, in practice, 1-3). On average, that means a player who can kill at least one champion per map should be able to sustain their maps, fulfilling condition #1 above.
 
 This is relatively generous on lower difficulties (which will also enable more casual players to more freely choose the content they interact with) but necessary on higher difficulties, while also providing a steady surplus of maps that can be stashed (either for a given run or for future ones). That surplus is tuned to not be too excessive.
 
