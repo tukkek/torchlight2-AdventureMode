@@ -57,6 +57,22 @@ The first and last tier of map scrolls have some limited scaling, with Tier 1 sc
 
 Since you can't find any spell vendors in this mode, a guaranteed spell drop is given with every boss and gold chest. This shouldn't impact balance too much as most spells are tuned around their mana cost and there is a hard limit to the number of spells you can have at once (even if you only go for passives). It also gives a nice incentive (and reward) to investing more time into longer dungeon and higher-risk boss maps. As a fall-back, champion monsters also have a small chance of dropping spells.
 
+# Balance
+
+## Difficulties
+
+* **_Casual_ and _Normal_**: are straighforward, with _Normal_ being the default play-testing option during the mod's development.
+*  **_Veteran_**: version 1.3 better supports this difficulty but even then players are advised to take some extra steps like stocking up on lower-tier maps (to fall-back to if needed) and acquiring a full set of basic gear before doing their first runs.
+*  **_Elite_**: while no intentional tuning has been done for this mode, some further min-maxing and, in particular use of the shared stash would probably make this viable. Players who enjoy pre-planned builds and use of build-guides might find this option better suited for their level of optimization as well.
+
+These requirements seem to be aligned with the spirit of _Veteran_ and _Elite_, as well as their tuning in other games of the genre. Players used to trivializing harder difficulties in the vanilla (or modded) game through extensive min-maxing may find the change significant though - however, [more mods can be used to restore that experience](https://steamcommunity.com/workshop/filedetails/discussion/2553033153/3827541651925946169/).
+
+Balance is considered for single-player, hardcore mode, fresh and solo-self-found (no stash), using the Torchlite mod pack and its spell drops. The ultimate goal is to allow players to level to 50 in around 4-5 hours with this setup, on their prefered difficulty. Use of the pack is not necessary, as it makes no major balance changes of its own.
+
+As with most roguelites, the first few maps can be fairly challenging, especially on higher difficulties. This happens because the players are at their weakest, with the least tools to mitigate risk. There are infinitely more ways to die early-on compared to the vanilla campaign but much playtesting has been done to ensure a smooth beginning, especially on the lower difficulties. Once players have a few levels under their belt, they can then choose their own pacing by doing higher or lower tier maps as preferred.
+
+## Progression
+
 # Planned features
 
 Full list of pending tasks and known-issues available [here](https://github.com/tukkek/torchlight2-AdventureMode/issues).
