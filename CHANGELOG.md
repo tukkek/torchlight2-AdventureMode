@@ -21,3 +21,14 @@
 * Vendor now has a second set of lower-level maps as fallback
 * Vanilla areas now scaled from levels 1 to 100 (eg: phase beast realms)
   * Temporarily removed a couple of maps that still aren't scaling right
+* This really should've been named 2.0! Oh, well...
+
+# 1.2
+
+* Fixed map affix inconsistencies https://github.com/tukkek/torchlight2-AdventureMode/issues/10
+
+# 1.3
+
+* Tuned map drops, in particular to better support veteran-difficulty runs
+  * Added balance section to read-me fil
+ 
