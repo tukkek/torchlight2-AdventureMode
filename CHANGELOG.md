@@ -27,7 +27,7 @@
 
 * Fixed map affix inconsistencies https://github.com/tukkek/torchlight2-AdventureMode/issues/10
 
-# 1.3
+# 2.0
 
 * Map drops tuning, in particular to better support veteran-difficulty runs
   * Added balance section to read-me file
