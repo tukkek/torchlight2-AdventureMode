@@ -1,5 +1,9 @@
 (Note: the Steam Workshop version numbers are handled by GUTS).
 
+# 1.0
+
+* Initial release
+
 # 1.1
 
 * **6 map reward types as strategic goals**
@@ -17,7 +21,3 @@
 * Vendor now has a second set of lower-level maps as fallback
 * Vanilla areas now scaled from levels 1 to 100 (eg: phase beast realms)
   * Temporarily removed a couple of maps that still aren't scaling right
-
-# 1.0
-
-* Initial release
