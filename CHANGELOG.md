@@ -29,6 +29,16 @@
 
 # 2.0
 
+* Vanilla affix system overhualed with 9 thematic, gameplay-impacting sets of map modifiers:
+  * Arcane
+  * Blazing
+  * Brutal
+  * Galvanic
+  * Glacial
+  * Lucky
+  * Toxic
+  * Vigorous
+  * Warped
 * Map drops tuning, in particular to better support veteran-difficulty runs
   * Added balance section to read-me file
  
