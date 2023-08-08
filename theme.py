@@ -24,7 +24,7 @@ class Galvanic(Theme):
   def __init__(self):
     super().__init__('Galvanic')
     self.player.buffs=['MAP_ELECTRIC_DAMAGE_PERCENT_BONUS_15'] 
-    self.monster.buffs=['MAP_ELECTRIC_DAMAGE_PERCENT_BONUS_15'] 
+    self.monster.buffs=['MAP_ELECTRIC_DAMAGE_PERCENT_BONUS_15','MAP_MONSTER_SPEED_PERCENT_BONUS_10'] 
 
 class Glacial(Theme):
   def __init__(self):
