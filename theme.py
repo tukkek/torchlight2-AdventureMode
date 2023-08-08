@@ -81,7 +81,7 @@ class Arcane(Theme):
 class Warped(Theme):
   def __init__(self):
     super().__init__('Warped')
-    self.monster.buffs=['CHAMPIONRANDOMTELEPORT','CHAMPIONRANDOMTELEPORTONSTRUCK','CHAMPIONTELEPORTING']
+    self.monster.buffs=['CHAMPIONRANDOMTELEPORT','CHAMPIONTELEPORTING']
 
 class Toxic(Theme):
   def __init__(self):
