@@ -166,7 +166,7 @@ class Tier:
     elif t==TIERS-1:
       self.maxlevel=100
     self.mindroplevel=1
-    self.maxdroplevel=self.maxlevel+5
+    self.maxdroplevel=self.maxlevel
     self.rarity=round(2**(TIERS-t-1)/goal.factor)
     self.value=t+1
     
