@@ -1,11 +1,9 @@
 (Note: the Steam Workshop version numbers are handled by GUTS).
 
-# 1.0
-
+# 1.0, 2023-05-02
 * Initial release
 
-# 1.1
-
+# 1.1, 2023-05-05
 * **6 map reward types as strategic goals**
   * **Over 20,000 map scrolls** (up from 2,000 in the original release)
   * 6 reward types (armor, trinkets, weapons, vendors, potions and shrines)
@@ -23,22 +21,17 @@
   * Temporarily removed a couple of maps that still aren't scaling right
 * This really should've been named 2.0! Oh, well...
 
-# 1.2
-
+# 1.2, 2023-08-05
 * Fixed map affix inconsistencies https://github.com/tukkek/torchlight2-AdventureMode/issues/10
 
-# 2.0
-
-* Vanilla affix system overhualed with 9 thematic, gameplay-impacting sets of map modifiers:
-  * Arcane
-  * Blazing
-  * Brutal
-  * Galvanic
-  * Glacial
-  * Lucky
-  * Toxic
-  * Vigorous
-  * Warped
-* Map drops tuning, in particular to better support veteran-difficulty runs
-  * Added balance section to read-me file
+# 2.0, 2023-08-08
+* Affix-system over-haul with 9 game-changing map modifiers:
+  * Arcane; blazing; brutal; galvanic; glacial; lucky; toxic; vigorous; and warped
+* Map-drops tuning to better-support veteran-difficulty runs
+* *Balance*-section added to Read-me
  
+# 2.1, 2025-08-01
+* Static progression:
+  * Sold-maps ignore scaling. favoring lower-tier maps
+  * Maps no-longer drop with tier lower than the current-area
+* More maps sold at-vendors; less drop from champions
